@@ -1,35 +1,31 @@
 "use client";
 
-export default function HotMarkets() {
-  const markets = [
-    { id: 1, team: "Francia", flag: "🇫🇷", odds: "$1M", total: "$1M" },
-    { id: 2, team: "España", flag: "🇪🇸", odds: "$1M", total: "$1M" },
-    { id: 3, team: "Alemania", flag: "🇩🇪", odds: "$1M", total: "$1M" }
-  ];
+import { Market } from "@/types/market";
 
-  const upcomingMatches = [
-    {
-      date: "11 junio 13:00",
-      time: "$2.82M Vol.",
-      worldCup: "World cup",
-      teams: ["Mexico", "Sudáfrica"],
-      link: "Vista del juego"
-    },
-    {
-      date: "11 junio 13:00",
-      time: "$2.82M Vol.",
-      worldCup: "World cup",
-      teams: ["Mexico", "Sudáfrica"],
-      link: "Vista del juego"
-    },
-    {
-      date: "11 junio 13:00",
-      time: "$2.82M Vol.",
-      worldCup: "World cup",
-      teams: ["Mexico", "Sudáfrica"],
-      link: "Vista del juego"
-    }
-  ];
+interface HotMarketsProps {
+  markets: Market[];
+}
+
+export default function HotMarkets({ markets }: HotMarketsProps) {
+  // Group by category
+  const championMarkets = markets.filter(m => 
+    m.question.toLowerCase().includes('win') || 
+    m.question.toLowerCase().includes('champion') ||
+    m.question.toLowerCase().includes('winner')
+  ).slice(0, 5);
+
+  const otherMarkets = markets.filter(m => 
+    !championMarkets.includes(m)
+  ).slice(0, 5);
+
+  if (markets.length === 0) {
+    return (
+      <div className="bg-white rounded-[8px] p-6">
+        <h2 className="text-[2rem] font-bold text-[#111111]">Hot &gt;</h2>
+        <p className="text-gray-600 font-light mt-4">No markets available</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-[8px] p-6">
@@ -38,80 +34,73 @@ export default function HotMarkets() {
       </div>
 
       <div className="space-y-6">
-        {/* Champion market */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-[#111111]">Campeón World Cup</h3>
-            <span className="text-sm text-gray-600 font-light">Total vol: $1M</span>
-          </div>
+        {/* Champion markets */}
+        {championMarkets.length > 0 && (
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-[#111111]">Tournament Winner</h3>
+              <span className="text-sm text-gray-600 font-light">
+                {championMarkets.reduce((sum, m) => {
+                  const vol = parseFloat(m.volume.replace(/[$MK]/g, '')) || 0;
+                  return sum + vol;
+                }, 0).toFixed(1)}M total
+              </span>
+            </div>
 
-          <div className="space-y-2">
-            {markets.map((market) => (
-              <button
-                key={market.id}
-                className="w-full flex items-center justify-between p-3 rounded-[8px] bg-[#E6E6E6] hover:opacity-80 transition-opacity group"
-              >
+            <div className="space-y-2">
+              {championMarkets.map((market, idx) => (
+                <button
+                  key={market.id}
+                  className="w-full flex items-center justify-between p-3 rounded-[8px] bg-[#E6E6E6] hover:opacity-80 transition-opacity group"
+                >
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <span className="text-sm text-gray-600">#{idx + 1}</span>
+                    <span className="font-medium text-[#111111] truncate">{market.question}</span>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="text-sm text-[#111111] font-light">{market.volume}</span>
+                    {market.outcomes[0] && (
+                      <span className="text-sm font-medium text-[#31A159]">
+                        {Math.round(market.outcomes[0].price * 100)}¢
+                      </span>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Other hot markets */}
+        {otherMarkets.length > 0 && (
+          <div className="space-y-3">
+            <h3 className="font-semibold text-[#111111]">Trending Markets</h3>
+            {otherMarkets.map((market) => (
+              <div key={market.id} className="pb-3 border-b border-[#DCDCDC] last:border-0">
+                <div className="flex items-center justify-between text-xs text-gray-600 font-light mb-2">
+                  <div>
+                    <div>{market.eventTitle}</div>
+                    <div className="font-normal">{market.volume} Vol.</div>
+                  </div>
+                  <div className="font-normal">{market.category}</div>
+                </div>
+
+                <p className="text-sm font-medium text-[#111111] mb-2">{market.question}</p>
+
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600">#{market.id}</span>
-                  <span className="text-2xl border-2 border-[#B1B1B1] rounded-full w-8 h-8 flex items-center justify-center overflow-hidden">{market.flag}</span>
-                  <span className="font-medium text-[#111111]">{market.team}</span>
+                  {market.outcomes.slice(0, 2).map((outcome, i) => (
+                    <button
+                      key={i}
+                      className={`px-4 py-1.5 rounded-[8px] text-xs font-medium ${i === 0 ? 'bg-[#31A159]' : 'bg-[#FFC4D0]'} text-[#111111] hover:opacity-80 transition-opacity border-[0.5rem] border-transparent`}
+                    >
+                      {outcome.label} {Math.round(outcome.price * 100)}¢
+                    </button>
+                  ))}
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-[#111111] font-light">Total vol: {market.total}</span>
-                  <span className="text-sm font-medium text-[#31A159]">
-                    {market.odds}
-                  </span>
-                </div>
-              </button>
+              </div>
             ))}
           </div>
-
-          <button className="mt-3 text-sm text-gray-600 hover:text-[#111111] flex items-center gap-1 font-light">
-            Selecciona otro país
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Upcoming matches */}
-        <div className="space-y-3">
-          {upcomingMatches.map((match, idx) => (
-            <div key={idx} className="pb-3 border-b border-[#DCDCDC] last:border-0">
-              <div className="flex items-center justify-between text-xs text-gray-600 font-light mb-2">
-                <div>
-                  <div>{match.date}</div>
-                  <div className="font-normal">{match.time}</div>
-                </div>
-                <div className="font-normal">{match.worldCup}</div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl border-2 border-[#B1B1B1] rounded-full w-8 h-8 flex items-center justify-center overflow-hidden">🇲🇽</span>
-                  <span className="font-medium text-[#111111]">{match.teams[0]}</span>
-                </div>
-                <button className="px-4 py-1.5 rounded-[8px] bg-[#31A159] text-[#111111] text-xs font-medium hover:opacity-80 transition-opacity border-[0.5rem] border-transparent">
-                  MEX 10$
-                </button>
-              </div>
-
-              <div className="flex items-center justify-between mt-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl border-2 border-[#B1B1B1] rounded-full w-8 h-8 flex items-center justify-center overflow-hidden">🇿🇦</span>
-                  <span className="font-medium text-[#111111]">{match.teams[1]}</span>
-                </div>
-                <button className="px-4 py-1.5 rounded-[8px] bg-[#FFC4D0] text-[#111111] text-xs font-medium hover:opacity-80 transition-opacity border-[0.5rem] border-transparent">
-                  SUD 10$
-                </button>
-              </div>
-
-              <button className="mt-2 text-xs text-[#31A159] hover:opacity-80 font-medium underline">
-                {match.link} ›
-              </button>
-            </div>
-          ))}
-        </div>
+        )}
       </div>
     </div>
   );

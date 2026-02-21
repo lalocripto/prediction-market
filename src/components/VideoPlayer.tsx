@@ -1,6 +1,12 @@
 "use client";
 
-export default function VideoPlayer() {
+import { SoccerEvent } from "@/types/market";
+
+interface VideoPlayerProps {
+  liveMatch?: SoccerEvent;
+}
+
+export default function VideoPlayer({ liveMatch }: VideoPlayerProps) {
   return (
     <div className="bg-[#111111] rounded-[8px] overflow-hidden shadow-lg aspect-video relative">
       {/* Video placeholder - would be actual video player */}
@@ -11,37 +17,39 @@ export default function VideoPlayer() {
               <path d="M8 5v14l11-7z"/>
             </svg>
           </div>
-          <p className="text-white/60 text-sm font-light">Live Match Stream</p>
+          <p className="text-white/60 text-sm font-light">
+            {liveMatch ? 'Live Match Stream' : 'No live match'}
+          </p>
         </div>
       </div>
 
       {/* Overlay info */}
-      <div className="absolute top-4 left-4 right-4 flex items-start justify-between">
-        <div className="bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-[8px]">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#FFC4D0] animate-pulse" />
-            <span className="text-white text-xs font-medium">0:00</span>
+      {liveMatch && (
+        <>
+          <div className="absolute top-4 left-4 right-4 flex items-start justify-between">
+            <div className="bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-[8px]">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-[#FFC4D0] animate-pulse" />
+                <span className="text-white text-xs font-medium">{liveMatch.endDate}</span>
+              </div>
+            </div>
+            <div className="bg-[#31A159] px-3 py-1.5 rounded-[8px] text-white text-xs font-medium">
+              LIVE
+            </div>
           </div>
-        </div>
-        <div className="bg-[#31A159] px-3 py-1.5 rounded-[8px] text-white text-xs font-medium">
-          LIVE
-        </div>
-      </div>
 
-      {/* Bottom scoreboard */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-        <div className="flex items-center justify-between text-white">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl border-2 border-[#B1B1B1] rounded-full w-8 h-8 flex items-center justify-center overflow-hidden">🇲🇽</span>
-            <span className="font-semibold">MEX</span>
+          {/* Bottom info */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+            <div className="text-white">
+              <h3 className="font-semibold text-sm mb-1">{liveMatch.title}</h3>
+              {liveMatch.score && (
+                <div className="text-2xl font-bold">{liveMatch.score}</div>
+              )}
+              <p className="text-xs text-white/60 mt-1">{liveMatch.series || 'World Cup'}</p>
+            </div>
           </div>
-          <div className="text-2xl font-bold">0 - 0</div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">ZAF</span>
-            <span className="text-2xl border-2 border-[#B1B1B1] rounded-full w-8 h-8 flex items-center justify-center overflow-hidden">🇿🇦</span>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }
