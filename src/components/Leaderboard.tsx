@@ -10,33 +10,33 @@ export default function Leaderboard() {
   ];
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+    <div className="bg-white rounded-[8px] p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-gray-900">Leader board &gt;</h2>
-        <span className="text-xs text-gray-500">Total volumen trade</span>
+        <h2 className="text-[2rem] font-bold text-[#111111]">Leader board &gt;</h2>
+        <span className="text-xs text-gray-600 font-light">Total volumen trade</span>
       </div>
 
       <div className="space-y-3">
         {leaders.map((leader) => (
           <div 
             key={leader.rank}
-            className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-between p-3 rounded-[8px] hover:bg-[#E6E6E6] transition-colors"
           >
             <div className="flex items-center gap-3">
               <span className={`text-sm font-bold ${
-                leader.rank === 1 ? 'text-amber-600' :
+                leader.rank === 1 ? 'text-[#31A159]' :
                 leader.rank === 2 ? 'text-gray-400' :
-                leader.rank === 3 ? 'text-amber-700' :
-                'text-gray-500'
+                leader.rank === 3 ? 'text-[#FFC4D0]' :
+                'text-gray-600'
               }`}>
                 #{leader.rank}
               </span>
-              <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full border-2 border-[#B1B1B1] bg-[#E6E6E6] flex items-center justify-center">
                 <span className="text-sm">👤</span>
               </div>
-              <span className="font-medium text-gray-900">{leader.name}</span>
+              <span className="font-medium text-[#111111]">{leader.name}</span>
             </div>
-            <span className="font-bold text-gray-900">{leader.points}</span>
+            <span className="font-bold text-[#111111]">{leader.points}</span>
           </div>
         ))}
       </div>

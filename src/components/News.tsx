@@ -2,12 +2,12 @@
 
 export default function News() {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Noticias</h2>
+    <div className="bg-white rounded-[8px] p-6">
+      <h2 className="text-[2rem] font-bold text-[#111111] mb-4">Noticias</h2>
 
       <article className="space-y-3">
         {/* Featured image */}
-        <div className="aspect-video rounded-xl overflow-hidden bg-gray-100">
+        <div className="aspect-video rounded-[8px] overflow-hidden bg-[#E6E6E6]">
           <img
             src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&q=80"
             alt="News"
@@ -16,19 +16,19 @@ export default function News() {
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-bold text-gray-900">
+        <h3 className="text-lg font-bold text-[#111111]">
           Cristiano ronaldo anota el gol del mundial
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-gray-600 leading-relaxed">
+        <p className="text-sm text-gray-600 leading-relaxed font-light">
           Detalle sobre la noticia bla bla bla bla. Detalle sobre la noticia bla bla bla bla.
           Detalle sobre la noticia bla bla bla bla. Detalle sobre la noticia bla bla bla bla.
           Detalle sobre la noticia bla bla bla bla.
         </p>
 
         {/* Read more */}
-        <button className="text-sm font-medium text-amber-600 hover:text-amber-700 transition-colors">
+        <button className="text-sm font-medium text-[#31A159] hover:opacity-80 transition-opacity underline">
           Leer más →
         </button>
       </article>

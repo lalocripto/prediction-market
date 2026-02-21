@@ -16,7 +16,7 @@ export default function Home() {
   const [activeGroup, setActiveGroup] = useState("A");
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#31A159]">
       <Header />
 
       <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-6">
