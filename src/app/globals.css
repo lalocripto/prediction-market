@@ -1,11 +1,11 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 :root {
   --background: #31A159;
   --foreground: #111111;
   --secondary: #E6E6E6;
-  --option-2: #FFC4D0;
+  --option-1: #B0CDFF;
+  --option-2: #FFD2A0;
   --border: #DCDCDC;
   --flag-border: #B1B1B1;
 }
@@ -23,22 +23,33 @@ body {
   font-weight: 300;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+/* Thin scrollbar for column overflow */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }
 
-::-webkit-scrollbar-track {
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Hide global scrollbar */
+html, body {
+  overflow: hidden;
+  height: 100%;
 }
 
 /* Remove number input arrows */

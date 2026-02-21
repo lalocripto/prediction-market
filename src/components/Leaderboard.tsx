@@ -10,33 +10,33 @@ export default function Leaderboard() {
   ];
 
   return (
-    <div className="bg-white rounded-[8px] p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-[2rem] font-bold text-[#111111]">Leader board &gt;</h2>
-        <span className="text-xs text-gray-600 font-light">Total volumen trade</span>
+    <div className="bg-white rounded-[8px] p-4">
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-lg font-bold text-[#111111]">Leader board &gt;</h2>
+        <span className="text-[10px] text-gray-600 font-light">Total vol. trade</span>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-1">
         {leaders.map((leader) => (
-          <div 
+          <div
             key={leader.rank}
-            className="flex items-center justify-between p-3 rounded-[8px] hover:bg-[#E6E6E6] transition-colors"
+            className="flex items-center justify-between p-2 rounded-[8px] hover:bg-[#E6E6E6] transition-colors"
           >
-            <div className="flex items-center gap-3">
-              <span className={`text-sm font-bold ${
-                leader.rank === 1 ? 'text-[#31A159]' :
+            <div className="flex items-center gap-2">
+              <span className={`text-xs font-bold ${
+                leader.rank === 1 ? 'text-[#B0CDFF]' :
                 leader.rank === 2 ? 'text-gray-400' :
-                leader.rank === 3 ? 'text-[#FFC4D0]' :
+                leader.rank === 3 ? 'text-[#FFD2A0]' :
                 'text-gray-600'
               }`}>
                 #{leader.rank}
               </span>
-              <div className="w-8 h-8 rounded-full border-2 border-[#B1B1B1] bg-[#E6E6E6] flex items-center justify-center">
-                <span className="text-sm">👤</span>
+              <div className="w-6 h-6 rounded-full border border-[#B1B1B1] bg-[#E6E6E6] flex items-center justify-center">
+                <span className="text-[10px]">👤</span>
               </div>
-              <span className="font-medium text-[#111111]">{leader.name}</span>
+              <span className="font-medium text-xs text-[#111111]">{leader.name}</span>
             </div>
-            <span className="font-bold text-[#111111]">{leader.points}</span>
+            <span className="font-bold text-xs text-[#111111]">{leader.points}</span>
           </div>
         ))}
       </div>
