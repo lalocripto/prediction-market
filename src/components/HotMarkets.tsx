@@ -28,7 +28,7 @@ export default function HotMarkets({ markets, onTrade }: HotMarketsProps) {
     return (
       <div className="bg-white rounded-[8px] p-4">
         <h2 className="text-lg font-bold text-[#111111]">Hot &gt;</h2>
-        <p className="text-gray-600 font-light mt-2 text-xs">No markets available</p>
+        <p className="text-gray-600 font-light mt-2 text-xs">No hay mercados disponibles</p>
       </div>
     );
   }
@@ -41,7 +41,7 @@ export default function HotMarkets({ markets, onTrade }: HotMarketsProps) {
         {championMarkets.length > 0 && (
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-semibold text-[#111111] text-xs">Tournament Winner</h3>
+              <h3 className="font-semibold text-[#111111] text-xs">Ganador del Torneo</h3>
               <span className="text-[10px] text-gray-600 font-light">
                 {championMarkets.reduce((sum, m) => {
                   const vol = parseFloat(m.volume.replace(/[$MK]/g, '')) || 0;
@@ -77,7 +77,7 @@ export default function HotMarkets({ markets, onTrade }: HotMarketsProps) {
 
         {otherMarkets.length > 0 && (
           <div className="space-y-2">
-            <h3 className="font-semibold text-[#111111] text-xs">Trending Markets</h3>
+            <h3 className="font-semibold text-[#111111] text-xs">Mercados en Tendencia</h3>
             {otherMarkets.map((market) => (
               <div key={market.id} className="pb-2 border-b border-[#DCDCDC] last:border-0">
                 <div className="flex items-center justify-between text-[10px] text-gray-600 font-light mb-1">

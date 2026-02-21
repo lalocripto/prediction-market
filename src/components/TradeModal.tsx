@@ -57,9 +57,9 @@ export default function TradeModal({
     } catch (err: unknown) {
       const e = err as { code?: number; message?: string };
       if (e.code === 4001) {
-        setTradeError("Transaction rejected in MetaMask");
+        setTradeError("Transacción rechazada en MetaMask");
       } else {
-        setTradeError(e.message || "Approval failed");
+        setTradeError(e.message || "Aprobación fallida");
       }
       setStep("input");
       return;
@@ -78,9 +78,9 @@ export default function TradeModal({
     } catch (err: unknown) {
       const e = err as { code?: number; message?: string };
       if (e.code === 4001) {
-        setTradeError("Signing rejected in MetaMask");
+        setTradeError("Firma rechazada en MetaMask");
       } else {
-        setTradeError(e.message || "Signing failed");
+        setTradeError(e.message || "Firma fallida");
       }
       setStep("input");
       return;
@@ -129,7 +129,7 @@ export default function TradeModal({
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-[#DCDCDC]">
           <h2 className="text-lg font-bold text-[#111111]">
-            {step === "confirmed" ? "Trade Confirmed" : "Place Trade"}
+            {step === "confirmed" ? "Trade Confirmado" : "Hacer Trade"}
           </h2>
           <button
             onClick={onClose}
@@ -157,19 +157,19 @@ export default function TradeModal({
                   <Wallet className="w-4 h-4 text-[#31A159] shrink-0" />
                   <div className="flex-1">
                     <p className="text-xs text-[#111111] font-light">
-                      Wallet not connected
+                      Wallet no conectada
                     </p>
                   </div>
                   <button
                     onClick={wallet.connect}
                     className="text-xs font-medium text-[#31A159] hover:opacity-80 underline"
                   >
-                    Connect
+                    Conectar
                   </button>
                 </div>
               )}
 
-              {/* Outcome selection */}
+              {/* Resultado selection */}
               <div
                 className="grid gap-2"
                 style={{
@@ -198,18 +198,18 @@ export default function TradeModal({
                 })}
               </div>
 
-              {/* Amount input */}
+              {/* Cantidad input */}
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label className="text-xs font-light text-gray-600">
-                    Amount (USDC)
+                    Cantidad (USDC)
                   </label>
                   {wallet.isConnected && (
                     <button
                       onClick={() => setAmount(balance.toString())}
                       className="text-[10px] text-[#31A159] hover:opacity-80 transition-colors font-light"
                     >
-                      Balance: {balance.toFixed(2)} USDC
+                      Saldo: {balance.toFixed(2)} USDC
                     </button>
                   )}
                 </div>
@@ -231,7 +231,7 @@ export default function TradeModal({
                 </div>
                 {insufficientBalance && amountNum > 0 && (
                   <p className="text-[10px] text-red-500 mt-1 font-light">
-                    Insufficient USDC balance
+                    Saldo USDC insuficiente
                   </p>
                 )}
                 <div className="flex gap-2 mt-2">
@@ -250,21 +250,21 @@ export default function TradeModal({
               {/* Summary */}
               <div className="bg-[#E6E6E6]/50 rounded-[8px] p-4 space-y-2.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 font-light">Outcome</span>
+                  <span className="text-gray-500 font-light">Resultado</span>
                   <span className="text-[#111111]">{selectedOutcome.label}</span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 font-light">Avg. Price</span>
+                  <span className="text-gray-500 font-light">Precio Prom.</span>
                   <span className="text-[#111111]">
                     {Math.round(selectedOutcome.price * 100)}¢
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 font-light">Est. Shares</span>
+                  <span className="text-gray-500 font-light">Acciones Est.</span>
                   <span className="text-[#111111]">{shares.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 font-light">Potential Return</span>
+                  <span className="text-gray-500 font-light">Retorno Potencial</span>
                   <span className="text-[#31A159] font-medium">
                     ${potentialReturn.toFixed(2)}{" "}
                     {profit > 0 && (
@@ -280,7 +280,7 @@ export default function TradeModal({
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 font-light">Network</span>
+                  <span className="text-gray-500 font-light">Red</span>
                   <span className="text-[#111111]">Monad</span>
                 </div>
               </div>
@@ -296,8 +296,8 @@ export default function TradeModal({
               <div className="flex items-start gap-2 text-xs text-gray-500 font-light">
                 <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" />
                 <span>
-                  Each share pays $1 if the outcome resolves in your favor.
-                  Prices from Polymarket.
+                  Cada acción paga $1 si el resultado se resuelve a tu favor.
+                  Precios de Polymarket.
                 </span>
               </div>
 
@@ -312,8 +312,8 @@ export default function TradeModal({
                 className="w-full py-3 rounded-[8px] text-sm font-bold text-[#111111] bg-[#31A159] hover:opacity-90 transition-all disabled:bg-[#E6E6E6] disabled:text-gray-400 disabled:cursor-not-allowed"
               >
                 {!wallet.isConnected
-                  ? "Connect Wallet First"
-                  : `Buy "${selectedOutcome.label}"`}
+                  ? "Conecta tu Wallet"
+                  : `Comprar "${selectedOutcome.label}"`}
               </button>
             </>
           )}
@@ -325,15 +325,15 @@ export default function TradeModal({
                 <Loader2 className="w-8 h-8 text-[#31A159] animate-spin" />
               </div>
               <h3 className="text-[#111111] font-semibold mb-1">
-                Approve USDC Spending
+                Aprobar Gasto USDC
               </h3>
               <p className="text-xs text-gray-500 font-light text-center mb-4">
-                Confirm the approval transaction in MetaMask to allow spending{" "}
+                Confirma la transacción en MetaMask para autorizar el gasto de{" "}
                 {amountNum.toFixed(2)} USDC
               </p>
               <div className="flex items-center gap-2 text-[10px] text-gray-500 font-light">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#31A159] animate-pulse" />
-                Waiting for MetaMask confirmation...
+                Esperando confirmación de MetaMask...
               </div>
             </div>
           )}
@@ -344,9 +344,9 @@ export default function TradeModal({
               <div className="w-16 h-16 rounded-full bg-[#31A159]/10 flex items-center justify-center mb-4">
                 <Loader2 className="w-8 h-8 text-[#31A159] animate-spin" />
               </div>
-              <h3 className="text-[#111111] font-semibold mb-1">Sign Order</h3>
+              <h3 className="text-[#111111] font-semibold mb-1">Firmar Orden</h3>
               <p className="text-xs text-gray-500 font-light text-center mb-4">
-                Sign the EIP-712 order in MetaMask to place your trade
+                Firma la orden EIP-712 en MetaMask para colocar tu trade
               </p>
               {txHash && (
                 <a
@@ -361,7 +361,7 @@ export default function TradeModal({
               )}
               <div className="flex items-center gap-2 text-[10px] text-gray-500 font-light">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#31A159] animate-pulse" />
-                Waiting for signature...
+                Esperando firma...
               </div>
             </div>
           )}
@@ -373,24 +373,24 @@ export default function TradeModal({
                 <CheckCircle className="w-8 h-8 text-[#31A159]" />
               </div>
               <h3 className="text-[#111111] font-semibold mb-1">
-                Order Placed Successfully!
+Orden Colocada Exitosamente!
               </h3>
               <p className="text-xs text-gray-500 font-light text-center mb-4">
-                Your order to buy &quot;{selectedOutcome.label}&quot; for $
-                {amountNum.toFixed(2)} has been signed
+                Tu orden de compra &quot;{selectedOutcome.label}&quot; por $
+                {amountNum.toFixed(2)} ha sido firmada
               </p>
 
               <div className="w-full bg-[#E6E6E6]/50 rounded-[8px] p-4 space-y-2 mb-4">
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 font-light">Outcome</span>
+                  <span className="text-gray-500 font-light">Resultado</span>
                   <span className="text-[#111111]">{selectedOutcome.label}</span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 font-light">Amount</span>
+                  <span className="text-gray-500 font-light">Cantidad</span>
                   <span className="text-[#111111]">${amountNum.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 font-light">Est. Shares</span>
+                  <span className="text-gray-500 font-light">Acciones Est.</span>
                   <span className="text-[#111111]">{shares.toFixed(2)}</span>
                 </div>
                 {txHash && (
@@ -425,13 +425,13 @@ export default function TradeModal({
                   }}
                   className="flex-1 py-2.5 rounded-[8px] text-sm font-medium bg-transparent text-[#111111] border border-[#DCDCDC] hover:bg-[#E6E6E6] transition-all"
                 >
-                  New Trade
+                  Nuevo Trade
                 </button>
                 <button
                   onClick={onClose}
                   className="flex-1 py-2.5 rounded-[8px] text-sm font-bold bg-[#31A159] text-[#111111] hover:opacity-90 transition-all"
                 >
-                  Done
+                  Listo
                 </button>
               </div>
             </div>

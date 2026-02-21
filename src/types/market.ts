@@ -119,4 +119,8 @@ export interface Bet {
   txHash?: string;
   signature?: string;
   walletAddress?: string;
+  // Sell fields
+  sellSignature?: string;
+  sellTxHash?: string;
+  soldAt?: number;
 }

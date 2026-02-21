@@ -65,8 +65,8 @@ export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatches
   if (significantMatches.length === 0) {
     return (
       <div className="bg-white rounded-[8px] p-4">
-        <h2 className="text-lg font-bold text-[#111111] mb-2">Top Markets</h2>
-        <p className="text-gray-600 font-light text-xs">No high-volume markets at the moment</p>
+        <h2 className="text-lg font-bold text-[#111111] mb-2">Mercados Top</h2>
+        <p className="text-gray-600 font-light text-xs">No hay mercados de alto volumen por el momento</p>
       </div>
     );
   }
@@ -74,7 +74,7 @@ export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatches
   return (
     <div className="bg-white rounded-[8px] p-4">
       <h2 className="text-lg font-bold text-[#111111] mb-3">
-        {matches.length > 0 ? 'Live' : 'Top Markets'}
+        {matches.length > 0 ? 'En Vivo' : 'Mercados Top'}
       </h2>
 
       <div className="space-y-4">

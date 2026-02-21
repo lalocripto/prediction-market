@@ -5,9 +5,8 @@ import Header from "@/components/Header";
 import LiveMatches from "@/components/LiveMatches";
 import HotMarkets from "@/components/HotMarkets";
 import TeamsGrid from "@/components/TeamsGrid";
-import MyStats from "@/components/MyStats";
+import Positions from "@/components/Positions";
 import Leaderboard from "@/components/Leaderboard";
-import Community from "@/components/Community";
 import News from "@/components/News";
 import VideoPlayer from "@/components/VideoPlayer";
 import TradeModal from "@/components/TradeModal";
@@ -31,6 +30,16 @@ export default function Home() {
 
   const handlePlaceBet = (bet: Bet) => {
     setBets((prev) => [...prev, bet]);
+  };
+
+  const handleSellComplete = (betIndex: number, sellSignature: string, sellTxHash: string) => {
+    setBets((prev) =>
+      prev.map((bet, i) =>
+        i === betIndex
+          ? { ...bet, sellSignature, sellTxHash, soldAt: Date.now() }
+          : bet
+      )
+    );
   };
 
   useEffect(() => {
@@ -78,34 +87,27 @@ export default function Home() {
               <div className="flex-1 overflow-y-auto scrollbar-thin">
                 <div className="space-y-3">
                   <LiveMatches matches={liveMatches} allEvents={events} onTrade={handleTrade} />
-                  <TeamsGrid events={events} />
+                  <TeamsGrid events={events} onTrade={handleTrade} />
                 </div>
               </div>
             </div>
 
-            {/* Center Column — Hot + Stats + Leaderboard */}
+            {/* Center Column — Hot + Positions + Leaderboard */}
             <div className="lg:col-span-1 flex flex-col gap-3 overflow-hidden">
               <div className="flex-1 overflow-y-auto scrollbar-thin">
                 <div className="space-y-3">
                   <HotMarkets markets={hotMarkets} onTrade={handleTrade} />
-                  <div className="grid grid-cols-1 gap-3">
-                    <MyStats />
-                    <Leaderboard />
-                  </div>
+                  <Positions bets={bets} onSellComplete={handleSellComplete} />
+                  <Leaderboard />
                 </div>
               </div>
             </div>
 
-            {/* Right Column — Video + Community + News */}
+            {/* Right Column — Video + News */}
             <div className="lg:col-span-2 flex flex-col gap-3 overflow-hidden">
               <VideoPlayer liveMatch={liveMatches[0]} />
-              <div className="flex-1 grid grid-cols-2 gap-3 overflow-hidden">
-                <div className="overflow-y-auto scrollbar-thin">
-                  <Community />
-                </div>
-                <div className="overflow-y-auto scrollbar-thin">
-                  <News />
-                </div>
+              <div className="flex-1 overflow-y-auto scrollbar-thin">
+                <News />
               </div>
             </div>
           </div>

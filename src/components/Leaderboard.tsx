@@ -12,8 +12,8 @@ export default function Leaderboard() {
   return (
     <div className="bg-white rounded-[8px] p-4">
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-lg font-bold text-[#111111]">Leader board &gt;</h2>
-        <span className="text-[10px] text-gray-600 font-light">Total vol. trade</span>
+        <h2 className="text-lg font-bold text-[#111111]">Tabla de líderes &gt;</h2>
+        <span className="text-[10px] text-gray-600 font-light">Vol. total trade</span>
       </div>
 
       <div className="space-y-1">

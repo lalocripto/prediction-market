@@ -25,7 +25,7 @@ export default function Header() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-[#111111]">World Cup 2026</h1>
-              <p className="text-xs text-gray-600 font-light">Prediction Markets</p>
+              <p className="text-xs text-gray-600 font-light">Mercados de Predicción</p>
             </div>
           </div>
 
@@ -58,7 +58,7 @@ export default function Header() {
                 ) : (
                   <Wallet className="w-4 h-4" />
                 )}
-                {wallet.isConnecting ? "Connecting..." : "Connect Wallet"}
+                {wallet.isConnecting ? "Conectando..." : "Conectar Wallet"}
               </button>
             )}
           </div>
