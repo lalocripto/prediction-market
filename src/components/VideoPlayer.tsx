@@ -10,7 +10,7 @@ export default function VideoPlayer({ liveMatch }: VideoPlayerProps) {
   return (
     <div className="bg-[#111111] rounded-[8px] overflow-hidden shadow-lg aspect-video relative">
       <iframe
-        src="https://www.youtube.com/embed/mYkzvdmWCEE?autoplay=0&rel=0"
+        src="https://www.youtube.com/embed/LIsS05bRvD8?autoplay=0&rel=0"
         title="World Cup 2026"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen

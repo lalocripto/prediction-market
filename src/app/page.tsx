@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import LiveMatches from "@/components/LiveMatches";
-import GroupsTabs from "@/components/GroupsTabs";
 import HotMarkets from "@/components/HotMarkets";
 import TeamsGrid from "@/components/TeamsGrid";
 import MyStats from "@/components/MyStats";
@@ -17,7 +16,6 @@ import { SoccerEvent, Market, Bet } from "@/types/market";
 import { Loader2 } from "lucide-react";
 
 export default function Home() {
-  const [activeGroup, setActiveGroup] = useState("A");
   const [events, setEvents] = useState<SoccerEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [tradeMarket, setTradeMarket] = useState<Market | null>(null);
@@ -75,17 +73,11 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 h-full">
-            {/* Left Column — Live + Groups + Teams */}
+            {/* Left Column — Top Markets + Teams */}
             <div className="lg:col-span-1 flex flex-col gap-3 overflow-hidden">
               <div className="flex-1 overflow-y-auto scrollbar-thin">
                 <div className="space-y-3">
                   <LiveMatches matches={liveMatches} allEvents={events} onTrade={handleTrade} />
-                  <GroupsTabs
-                    activeGroup={activeGroup}
-                    onGroupChange={setActiveGroup}
-                    events={events}
-                    onTrade={handleTrade}
-                  />
                   <TeamsGrid events={events} />
                 </div>
               </div>
