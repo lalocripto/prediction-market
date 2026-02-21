@@ -7,7 +7,7 @@ export default function News() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <article className="space-y-2">
-          <div className="aspect-video rounded-[8px] overflow-hidden bg-[#E6E6E6]">
+          <div className="aspect-video rounded-[8px] overflow-hidden bg-[#DAD3FF]/30">
             <img
               src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&q=60"
               alt="News"
@@ -20,13 +20,13 @@ export default function News() {
           <p className="text-[10px] text-gray-600 leading-relaxed font-light line-clamp-2">
             Detalle sobre la noticia bla bla bla bla. Detalle sobre la noticia bla bla bla bla.
           </p>
-          <button className="text-xs font-medium text-[#31A159] hover:opacity-80 transition-opacity underline">
+          <button className="text-xs font-medium text-[#836EF9] hover:opacity-80 transition-opacity underline">
             Leer más →
           </button>
         </article>
 
         <article className="space-y-2">
-          <div className="aspect-video rounded-[8px] overflow-hidden bg-[#E6E6E6]">
+          <div className="aspect-video rounded-[8px] overflow-hidden bg-[#DAD3FF]/30">
             <img
               src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&q=60"
               alt="News"
@@ -39,7 +39,7 @@ export default function News() {
           <p className="text-[10px] text-gray-600 leading-relaxed font-light line-clamp-2">
             La selección argentina avanza con paso firme hacia el mundial 2026.
           </p>
-          <button className="text-xs font-medium text-[#31A159] hover:opacity-80 transition-opacity underline">
+          <button className="text-xs font-medium text-[#836EF9] hover:opacity-80 transition-opacity underline">
             Leer más →
           </button>
         </article>

@@ -114,8 +114,8 @@ export default function TradeModal({
 
   // Design system outcome button colors
   const outcomeButtonStyles = (idx: number, isSelected: boolean) => {
-    const bgColors = ['bg-[#B0CDFF]', 'bg-[#E6E6E6]', 'bg-[#FFD2A0]'];
-    const bg = bgColors[idx % bgColors.length] || 'bg-[#E6E6E6]';
+    const bgColors = ['bg-[#836EF9] text-white', 'bg-[#DAD3FF]', 'bg-[#F1FBB9]'];
+    const bg = bgColors[idx % bgColors.length] || 'bg-[#DAD3FF]/40';
     if (isSelected) {
       return `${bg} text-[#111111] border-2 border-[#111111] shadow-md`;
     }
@@ -156,8 +156,8 @@ export default function TradeModal({
             <>
               {/* Not connected warning */}
               {!wallet.isConnected && (
-                <div className="flex items-center gap-3 p-3 rounded-[8px] bg-[#31A159]/10 border border-[#31A159]/30">
-                  <Wallet className="w-4 h-4 text-[#31A159] shrink-0" />
+                <div className="flex items-center gap-3 p-3 rounded-[8px] bg-[#836EF9]/10 border border-[#836EF9]/30">
+                  <Wallet className="w-4 h-4 text-[#836EF9] shrink-0" />
                   <div className="flex-1">
                     <p className="text-xs text-[#111111] font-light">
                       Wallet no conectada
@@ -165,7 +165,7 @@ export default function TradeModal({
                   </div>
                   <button
                     onClick={wallet.connect}
-                    className="text-xs font-medium text-[#31A159] hover:opacity-80 underline"
+                    className="text-xs font-medium text-[#836EF9] hover:opacity-80 underline"
                   >
                     Conectar
                   </button>
@@ -210,7 +210,7 @@ export default function TradeModal({
                   {wallet.isConnected && (
                     <button
                       onClick={() => setAmount(balance.toString())}
-                      className="text-[10px] text-[#31A159] hover:opacity-80 transition-colors font-light"
+                      className="text-[10px] text-[#836EF9] hover:opacity-80 transition-colors font-light"
                     >
                       Saldo: {balance.toFixed(2)} USDC
                     </button>
@@ -228,7 +228,7 @@ export default function TradeModal({
                     className={`w-full bg-transparent border rounded-[8px] py-3 pl-8 pr-4 text-[#111111] text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 transition-all ${
                       insufficientBalance && amountNum > 0
                         ? "border-red-400 focus:border-red-400 focus:ring-red-200"
-                        : "border-[#DCDCDC] focus:border-[#31A159] focus:ring-[#31A159]/25"
+                        : "border-[#DCDCDC] focus:border-[#836EF9] focus:ring-[#836EF9]/20"
                     }`}
                   />
                 </div>
@@ -242,7 +242,7 @@ export default function TradeModal({
                     <button
                       key={preset}
                       onClick={() => setAmount(preset.toString())}
-                      className="flex-1 py-1.5 rounded-[8px] text-xs font-medium bg-[#E6E6E6] text-[#111111] hover:opacity-80 transition-all"
+                      className="flex-1 py-1.5 rounded-[8px] text-xs font-medium bg-[#DAD3FF]/40 text-[#111111] hover:opacity-80 transition-all"
                     >
                       ${preset}
                     </button>
@@ -251,7 +251,7 @@ export default function TradeModal({
               </div>
 
               {/* Summary */}
-              <div className="bg-[#E6E6E6]/50 rounded-[8px] p-4 space-y-2.5">
+              <div className="bg-[#DAD3FF]/20 rounded-[8px] p-4 space-y-2.5">
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-500 font-light">Resultado</span>
                   <span className="text-[#111111]">{selectedOutcome.label}</span>
@@ -268,10 +268,10 @@ export default function TradeModal({
                 </div>
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-500 font-light">Retorno Potencial</span>
-                  <span className="text-[#31A159] font-medium">
+                  <span className="text-[#836EF9] font-medium">
                     ${potentialReturn.toFixed(2)}{" "}
                     {profit > 0 && (
-                      <span className="text-[#31A159]">
+                      <span className="text-[#836EF9]">
                         (+
                         {(
                           (profit / (parseFloat(amount) || 1)) *
@@ -312,7 +312,7 @@ export default function TradeModal({
                   !wallet.isConnected ||
                   insufficientBalance
                 }
-                className="w-full py-3 rounded-[8px] text-sm font-bold text-[#111111] bg-[#31A159] hover:opacity-90 transition-all disabled:bg-[#E6E6E6] disabled:text-gray-400 disabled:cursor-not-allowed"
+                className="w-full py-3 rounded-[8px] text-sm font-bold text-white bg-[#836EF9] hover:opacity-90 transition-all disabled:bg-[#DAD3FF]/40 disabled:text-gray-400 disabled:cursor-not-allowed"
               >
                 {!wallet.isConnected
                   ? "Conecta tu Wallet"
@@ -324,8 +324,8 @@ export default function TradeModal({
           {/* ============ APPROVING STEP ============ */}
           {step === "approving" && (
             <div className="flex flex-col items-center py-6">
-              <div className="w-16 h-16 rounded-full bg-[#31A159]/10 flex items-center justify-center mb-4">
-                <Loader2 className="w-8 h-8 text-[#31A159] animate-spin" />
+              <div className="w-16 h-16 rounded-full bg-[#836EF9]/10 flex items-center justify-center mb-4">
+                <Loader2 className="w-8 h-8 text-[#836EF9] animate-spin" />
               </div>
               <h3 className="text-[#111111] font-semibold mb-1">
                 Aprobar Gasto USDC
@@ -335,7 +335,7 @@ export default function TradeModal({
                 {amountNum.toFixed(2)} USDC
               </p>
               <div className="flex items-center gap-2 text-[10px] text-gray-500 font-light">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#31A159] animate-pulse" />
+                <div className="w-1.5 h-1.5 rounded-full bg-[#836EF9] animate-pulse" />
                 Esperando confirmación de MetaMask...
               </div>
             </div>
@@ -344,8 +344,8 @@ export default function TradeModal({
           {/* ============ SIGNING STEP ============ */}
           {step === "signing" && (
             <div className="flex flex-col items-center py-6">
-              <div className="w-16 h-16 rounded-full bg-[#31A159]/10 flex items-center justify-center mb-4">
-                <Loader2 className="w-8 h-8 text-[#31A159] animate-spin" />
+              <div className="w-16 h-16 rounded-full bg-[#836EF9]/10 flex items-center justify-center mb-4">
+                <Loader2 className="w-8 h-8 text-[#836EF9] animate-spin" />
               </div>
               <h3 className="text-[#111111] font-semibold mb-1">Firmar Orden</h3>
               <p className="text-xs text-gray-500 font-light text-center mb-4">
@@ -356,14 +356,14 @@ export default function TradeModal({
                   href={`https://monadvision.com/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-[10px] text-[#31A159] hover:underline mb-2"
+                  className="flex items-center gap-1 text-[10px] text-[#836EF9] hover:underline mb-2"
                 >
                   Tx aprobación: {txHash.slice(0, 10)}...{txHash.slice(-6)}
                   <ExternalLink className="w-3 h-3" />
                 </a>
               )}
               <div className="flex items-center gap-2 text-[10px] text-gray-500 font-light">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#31A159] animate-pulse" />
+                <div className="w-1.5 h-1.5 rounded-full bg-[#836EF9] animate-pulse" />
                 Esperando firma...
               </div>
             </div>
@@ -372,8 +372,8 @@ export default function TradeModal({
           {/* ============ CONFIRMED STEP ============ */}
           {step === "confirmed" && (
             <div className="flex flex-col items-center py-4">
-              <div className="w-16 h-16 rounded-full bg-[#31A159]/10 flex items-center justify-center mb-4">
-                <CheckCircle className="w-8 h-8 text-[#31A159]" />
+              <div className="w-16 h-16 rounded-full bg-[#836EF9]/10 flex items-center justify-center mb-4">
+                <CheckCircle className="w-8 h-8 text-[#836EF9]" />
               </div>
               <h3 className="text-[#111111] font-semibold mb-1">
 Orden Colocada Exitosamente!
@@ -383,7 +383,7 @@ Orden Colocada Exitosamente!
                 {amountNum.toFixed(2)} ha sido firmada
               </p>
 
-              <div className="w-full bg-[#E6E6E6]/50 rounded-[8px] p-4 space-y-2 mb-4">
+              <div className="w-full bg-[#DAD3FF]/20 rounded-[8px] p-4 space-y-2 mb-4">
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-500 font-light">Resultado</span>
                   <span className="text-[#111111]">{selectedOutcome.label}</span>
@@ -403,7 +403,7 @@ Orden Colocada Exitosamente!
                       href={`https://monadvision.com/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-[#31A159] hover:underline"
+                      className="flex items-center gap-1 text-[#836EF9] hover:underline"
                     >
                       {txHash.slice(0, 8)}...{txHash.slice(-4)}
                       <ExternalLink className="w-3 h-3" />
@@ -426,13 +426,13 @@ Orden Colocada Exitosamente!
                     resetTrade();
                     setAmount("");
                   }}
-                  className="flex-1 py-2.5 rounded-[8px] text-sm font-medium bg-transparent text-[#111111] border border-[#DCDCDC] hover:bg-[#E6E6E6] transition-all"
+                  className="flex-1 py-2.5 rounded-[8px] text-sm font-medium bg-transparent text-[#111111] border border-[#DCDCDC] hover:bg-[#DAD3FF]/40 transition-all"
                 >
                   Nuevo Trade
                 </button>
                 <button
                   onClick={onClose}
-                  className="flex-1 py-2.5 rounded-[8px] text-sm font-bold bg-[#31A159] text-[#111111] hover:opacity-90 transition-all"
+                  className="flex-1 py-2.5 rounded-[8px] text-sm font-bold bg-[#836EF9] text-white hover:opacity-90 transition-all"
                 >
                   Listo
                 </button>

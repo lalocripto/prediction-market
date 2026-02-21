@@ -56,7 +56,7 @@ export default function HotMarkets({ markets, onTrade }: HotMarketsProps) {
                 <button
                   key={market.id}
                   onClick={() => onTrade(market)}
-                  className="w-full flex items-center justify-between p-2 rounded-[8px] bg-[#E6E6E6] hover:opacity-80 transition-opacity"
+                  className="w-full flex items-center justify-between p-2 rounded-[8px] bg-[#DAD3FF]/40 hover:bg-[#DAD3FF]/70 transition-colors"
                 >
                   <div className="flex items-center gap-2 flex-1 min-w-0">
                     <span className="text-[10px] text-gray-600">#{idx + 1}</span>
@@ -65,7 +65,7 @@ export default function HotMarkets({ markets, onTrade }: HotMarketsProps) {
                   <div className="flex items-center gap-2 shrink-0">
                     <span className="text-[10px] text-[#111111] font-light">{market.volume}</span>
                     {market.outcomes[0] && (
-                      <span className="text-xs font-medium text-[#31A159]">
+                      <span className="text-xs font-medium text-[#836EF9]">
                         {Math.round(market.outcomes[0].price * 100)}¢
                       </span>
                     )}
@@ -91,7 +91,7 @@ export default function HotMarkets({ markets, onTrade }: HotMarketsProps) {
                     <button
                       key={i}
                       onClick={() => onTrade(market)}
-                      className={`px-2 py-1 rounded-[8px] text-[10px] font-medium ${i === 0 ? 'bg-[#B0CDFF]' : 'bg-[#FFD2A0]'} text-[#111111] hover:opacity-80 transition-opacity`}
+                      className={`px-2 py-1 rounded-[8px] text-[10px] font-medium ${i === 0 ? 'bg-[#836EF9] text-white' : 'bg-[#F1FBB9] text-[#111111]'} hover:opacity-80 transition-opacity`}
                     >
                       {outcome.label} {Math.round(outcome.price * 100)}¢
                     </button>

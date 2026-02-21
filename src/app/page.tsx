@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
 import LiveMatches from "@/components/LiveMatches";
 import HotMarkets from "@/components/HotMarkets";
 import TeamsGrid from "@/components/TeamsGrid";
@@ -113,13 +113,15 @@ export default function Home() {
   const hotMarkets = allMarkets.slice(0, 15);
 
   return (
-    <div className="h-screen bg-[#31A159] flex flex-col overflow-hidden">
-      <Header />
+    <div className="h-screen bg-[#F0EDFF] flex overflow-hidden">
+      {/* Sidebar on the left */}
+      <Sidebar />
 
-      <main className="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-3 overflow-hidden">
+      {/* Main content */}
+      <main className="flex-1 px-3 py-2 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center h-full">
-            <Loader2 className="w-8 h-8 text-white animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#836EF9] animate-spin" />
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 h-full">

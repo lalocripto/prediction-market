@@ -128,7 +128,7 @@ export default function TeamsGrid({ events, onTrade }: TeamsGridProps) {
                 key={idx}
                 className="flex flex-col items-center justify-center p-2 rounded-[8px] border border-[#DCDCDC]"
               >
-                <div className="w-8 h-8 rounded-full border border-[#B1B1B1] bg-[#E6E6E6] overflow-hidden flex items-center justify-center mb-1">
+                <div className="w-8 h-8 rounded-full border border-[#DAD3FF] bg-[#DAD3FF]/30 overflow-hidden flex items-center justify-center mb-1">
                   {flagUrl ? (
                     <img src={flagUrl} alt={getDisplayName(team)} className="w-full h-full object-cover" loading="lazy" />
                   ) : (
@@ -159,9 +159,9 @@ export default function TeamsGrid({ events, onTrade }: TeamsGridProps) {
             <button
               key={idx}
               onClick={() => onTrade(tm.market)}
-              className="flex flex-col items-center justify-center p-2 rounded-[8px] border border-[#DCDCDC] hover:border-[#31A159] hover:bg-[#31A159]/5 transition-all group"
+              className="flex flex-col items-center justify-center p-2 rounded-[8px] border border-[#DAD3FF] hover:border-[#836EF9] hover:bg-[#836EF9]/5 transition-all group"
             >
-              <div className="w-8 h-8 rounded-full border border-[#B1B1B1] bg-[#E6E6E6] overflow-hidden flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+              <div className="w-8 h-8 rounded-full border border-[#DAD3FF] bg-[#DAD3FF]/30 overflow-hidden flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
                 {flagUrl ? (
                   <img src={flagUrl} alt={getDisplayName(tm.country)} className="w-full h-full object-cover" loading="lazy" />
                 ) : (
@@ -172,7 +172,7 @@ export default function TeamsGrid({ events, onTrade }: TeamsGridProps) {
                 {getDisplayName(tm.country)}
               </span>
               <span className={`text-[10px] font-bold mt-0.5 ${
-                priceCents >= 10 ? 'text-[#31A159]' : 'text-gray-500'
+                priceCents >= 10 ? 'text-[#836EF9]' : 'text-gray-500'
               }`}>
                 {priceCents}¢
               </span>

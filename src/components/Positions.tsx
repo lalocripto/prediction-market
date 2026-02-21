@@ -114,8 +114,8 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
             onClick={() => setActiveTab("open")}
             className={`px-2 py-0.5 rounded-[8px] text-[10px] font-medium transition-colors ${
               activeTab === "open"
-                ? "bg-[#111111] text-white"
-                : "bg-[#E6E6E6] text-[#111111] hover:opacity-80"
+                ? "bg-[#836EF9] text-white"
+                : "bg-[#DAD3FF]/40 text-[#111111] hover:opacity-80"
             }`}
           >
             Abiertas ({openPositions.length})
@@ -124,8 +124,8 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
             onClick={() => setActiveTab("history")}
             className={`px-2 py-0.5 rounded-[8px] text-[10px] font-medium transition-colors ${
               activeTab === "history"
-                ? "bg-[#111111] text-white"
-                : "bg-[#E6E6E6] text-[#111111] hover:opacity-80"
+                ? "bg-[#836EF9] text-white"
+                : "bg-[#DAD3FF]/40 text-[#111111] hover:opacity-80"
             }`}
           >
             Historial ({closedPositions.length})
@@ -174,7 +174,7 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-1.5">
                       <span className={`inline-block w-1.5 h-1.5 rounded-full ${
-                        activeTab === "open" ? "bg-[#31A159]" : "bg-gray-400"
+                        activeTab === "open" ? "bg-[#836EF9]" : "bg-gray-400"
                       }`} />
                       <span className="text-xs font-semibold text-[#111111]">
                         {bet.outcome}
@@ -207,7 +207,7 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                     <div>
                       <div className="text-[10px] text-gray-500 font-light">G&P</div>
                       <div className={`text-xs font-semibold flex items-center gap-0.5 ${
-                        pnl >= 0 ? "text-[#31A159]" : "text-red-500"
+                        pnl >= 0 ? "text-[#836EF9]" : "text-red-500"
                       }`}>
                         {pnl >= 0 ? (
                           <TrendingUp className="w-3 h-3" />
@@ -226,7 +226,7 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                         href={`https://monadvision.com/tx/${bet.txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-0.5 text-[10px] text-[#31A159] hover:underline"
+                        className="flex items-center gap-0.5 text-[10px] text-[#836EF9] hover:underline"
                       >
                         Tx {bet.txHash.slice(0, 6)}...
                         <ExternalLink className="w-2.5 h-2.5" />
@@ -247,9 +247,9 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                       className={`w-full py-1.5 rounded-[8px] text-xs font-medium transition-all ${
                         isSelling
                           ? sellStep === "done"
-                            ? "bg-[#31A159]/20 text-[#31A159] border border-[#31A159]"
-                            : "bg-[#E6E6E6] text-gray-500"
-                          : "bg-[#FFD2A0] text-[#111111] hover:opacity-80"
+                            ? "bg-[#836EF9]/20 text-[#836EF9] border border-[#836EF9]"
+                            : "bg-[#DAD3FF]/40 text-gray-500"
+                          : "bg-[#F1FBB9] text-[#111111] hover:opacity-80"
                       }`}
                     >
                       {isSelling ? (
@@ -276,7 +276,7 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
 
                   {/* Sold info for history */}
                   {activeTab === "history" && bet.sellSignature && (
-                    <div className="flex items-center justify-between p-1.5 rounded-[8px] bg-[#E6E6E6]/50">
+                    <div className="flex items-center justify-between p-1.5 rounded-[8px] bg-[#DAD3FF]/40/50">
                       <span className="text-[10px] text-gray-500 font-light">Firma venta:</span>
                       <span className="text-[10px] text-gray-600 font-mono">
                         {bet.sellSignature.slice(0, 12)}...

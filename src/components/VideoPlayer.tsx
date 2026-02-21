@@ -20,7 +20,7 @@ export default function VideoPlayer({ liveMatch }: VideoPlayerProps) {
       {/* Live overlay */}
       {liveMatch && (
         <div className="absolute top-3 right-3 z-10">
-          <div className="bg-[#31A159] px-3 py-1.5 rounded-[8px] text-white text-xs font-medium shadow-lg">
+          <div className="bg-[#836EF9] px-3 py-1.5 rounded-[8px] text-white text-xs font-medium shadow-lg">
             EN VIVO
           </div>
         </div>

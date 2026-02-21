@@ -20,18 +20,18 @@ export default function Leaderboard() {
         {leaders.map((leader) => (
           <div
             key={leader.rank}
-            className="flex items-center justify-between p-2 rounded-[8px] hover:bg-[#E6E6E6] transition-colors"
+            className="flex items-center justify-between p-2 rounded-[8px] hover:bg-[#DAD3FF]/30 transition-colors"
           >
             <div className="flex items-center gap-2">
               <span className={`text-xs font-bold ${
-                leader.rank === 1 ? 'text-[#B0CDFF]' :
+                leader.rank === 1 ? 'text-[#836EF9]' :
                 leader.rank === 2 ? 'text-gray-400' :
-                leader.rank === 3 ? 'text-[#FFD2A0]' :
+                leader.rank === 3 ? 'text-[#F1FBB9]' :
                 'text-gray-600'
               }`}>
                 #{leader.rank}
               </span>
-              <div className="w-6 h-6 rounded-full border border-[#B1B1B1] bg-[#E6E6E6] flex items-center justify-center">
+              <div className="w-6 h-6 rounded-full border border-[#DAD3FF] bg-[#DAD3FF]/30 flex items-center justify-center">
                 <span className="text-[10px]">👤</span>
               </div>
               <span className="font-medium text-xs text-[#111111]">{leader.name}</span>

@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #31A159;
+  --background: #F0EDFF;
   --foreground: #111111;
-  --secondary: #E6E6E6;
-  --option-1: #B0CDFF;
-  --option-2: #FFD2A0;
-  --border: #DCDCDC;
-  --flag-border: #B1B1B1;
+  --primary: #836EF9;
+  --secondary: #DAD3FF;
+  --accent: #F1FBB9;
+  --border: #DAD3FF;
 }
 
 @theme inline {
@@ -26,7 +25,7 @@ body {
 /* Thin scrollbar for column overflow */
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+  scrollbar-color: rgba(131, 110, 249, 0.2) transparent;
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -38,12 +37,12 @@ body {
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(131, 110, 249, 0.2);
   border-radius: 2px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(131, 110, 249, 0.4);
 }
 
 /* Hide global scrollbar */

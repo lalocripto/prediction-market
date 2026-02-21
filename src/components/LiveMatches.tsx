@@ -101,7 +101,7 @@ export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatches
                 <div className="flex items-center justify-center gap-6">
                   {/* Team 1 */}
                   <div className="flex flex-col items-center gap-1">
-                    <div className="w-12 h-12 rounded-full border-2 border-[#B1B1B1] bg-[#E6E6E6] overflow-hidden flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full border-2 border-[#DAD3FF] bg-[#DAD3FF]/30 overflow-hidden flex items-center justify-center">
                       {getFlagUrl(teams.team1) ? (
                         <img src={getFlagUrl(teams.team1)!} alt={teams.team1} className="w-full h-full object-cover" />
                       ) : (
@@ -118,7 +118,7 @@ export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatches
 
                   {/* Team 2 */}
                   <div className="flex flex-col items-center gap-1">
-                    <div className="w-12 h-12 rounded-full border-2 border-[#B1B1B1] bg-[#E6E6E6] overflow-hidden flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full border-2 border-[#DAD3FF] bg-[#DAD3FF]/30 overflow-hidden flex items-center justify-center">
                       {getFlagUrl(teams.team2) ? (
                         <img src={getFlagUrl(teams.team2)!} alt={teams.team2} className="w-full h-full object-cover" />
                       ) : (
@@ -137,12 +137,12 @@ export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatches
               {/* Betting buttons */}
               <div className="grid grid-cols-3 gap-2">
                 {mainMarket.outcomes.slice(0, 3).map((outcome, i) => {
-                  const colors = ['bg-[#B0CDFF]', 'bg-[#E6E6E6]', 'bg-[#FFD2A0]'];
+                  const colors = ['bg-[#836EF9] text-white', 'bg-[#DAD3FF] text-[#111111]', 'bg-[#F1FBB9] text-[#111111]'];
                   return (
                     <button
                       key={i}
                       onClick={() => onTrade(mainMarket)}
-                      className={`flex flex-col items-center py-2.5 rounded-[8px] ${colors[i] || 'bg-gray-200'} text-[#111111] hover:opacity-80 transition-opacity`}
+                      className={`flex flex-col items-center py-2.5 rounded-[8px] ${colors[i] || 'bg-gray-200'} hover:opacity-80 transition-opacity`}
                     >
                       <span className="text-xs font-semibold">{outcome.label}</span>
                       <span className="text-[10px] font-light">{Math.round(outcome.price * 100)}¢</span>
@@ -160,7 +160,7 @@ export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatches
                       <button
                         key={i}
                         onClick={() => onTrade(market)}
-                        className={`px-3 py-1 rounded-[8px] text-[10px] font-medium ${i === 0 ? 'bg-[#B0CDFF]' : 'bg-[#FFD2A0]'} text-[#111111] hover:opacity-80 transition-opacity`}
+                        className={`px-3 py-1 rounded-[8px] text-[10px] font-medium ${i === 0 ? 'bg-[#836EF9] text-white' : 'bg-[#F1FBB9] text-[#111111]'} hover:opacity-80 transition-opacity`}
                       >
                         {opt.label} {Math.round(opt.price * 100)}¢
                       </button>
