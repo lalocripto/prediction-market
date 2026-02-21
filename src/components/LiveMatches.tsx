@@ -8,16 +8,22 @@ interface LiveMatchesProps {
 }
 
 export default function LiveMatches({ matches, allEvents }: LiveMatchesProps) {
-  // If no live matches, show upcoming high-volume events
+  // Sort by volume24hr and take top events
+  const sortedByVolume = [...allEvents].sort((a, b) => b.volume24hr - a.volume24hr);
+  
+  // If no live matches, show top high-volume events
   const displayMatches = matches.length > 0 
     ? matches 
-    : allEvents.slice(0, 2);
+    : sortedByVolume.slice(0, 2);
 
-  if (displayMatches.length === 0) {
+  // Filter only events with significant volume (>$100K)
+  const significantMatches = displayMatches.filter(e => e.volume24hr > 100000);
+
+  if (significantMatches.length === 0) {
     return (
       <div className="bg-white rounded-[8px] p-6">
-        <h2 className="text-[2rem] font-bold text-[#111111] mb-4">Live</h2>
-        <p className="text-gray-600 font-light">No live matches at the moment</p>
+        <h2 className="text-[2rem] font-bold text-[#111111] mb-4">Top Markets</h2>
+        <p className="text-gray-600 font-light">No high-volume markets at the moment</p>
       </div>
     );
   }
@@ -25,11 +31,11 @@ export default function LiveMatches({ matches, allEvents }: LiveMatchesProps) {
   return (
     <div className="bg-white rounded-[8px] p-6">
       <h2 className="text-[2rem] font-bold text-[#111111] mb-4">
-        {matches.length > 0 ? 'Live' : 'Upcoming'}
+        {matches.length > 0 ? 'Live' : 'Top Markets'}
       </h2>
       
       <div className="space-y-4">
-        {displayMatches.map((event, idx) => {
+        {significantMatches.map((event, idx) => {
           const mainMarket = event.markets[0];
           if (!mainMarket) return null;
 
@@ -89,7 +95,7 @@ export default function LiveMatches({ matches, allEvents }: LiveMatchesProps) {
               ))}
 
               {/* Divider */}
-              {idx < displayMatches.length - 1 && (
+              {idx < significantMatches.length - 1 && (
                 <div className="flex items-center gap-2 pt-2">
                   {[...Array(4)].map((_, i) => (
                     <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-[#111111]' : 'bg-gray-300'}`} />

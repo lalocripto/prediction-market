@@ -7,14 +7,21 @@ interface HotMarketsProps {
 }
 
 export default function HotMarkets({ markets }: HotMarketsProps) {
-  // Group by category
-  const championMarkets = markets.filter(m => 
+  // Sort markets by volume
+  const sortedMarkets = [...markets].sort((a, b) => {
+    const volA = parseFloat(a.volume.replace(/[$MK]/g, '')) * (a.volume.includes('M') ? 1000000 : a.volume.includes('K') ? 1000 : 1);
+    const volB = parseFloat(b.volume.replace(/[$MK]/g, '')) * (b.volume.includes('M') ? 1000000 : b.volume.includes('K') ? 1000 : 1);
+    return volB - volA;
+  });
+
+  // Group by category - champion/winner markets first
+  const championMarkets = sortedMarkets.filter(m => 
     m.question.toLowerCase().includes('win') || 
     m.question.toLowerCase().includes('champion') ||
     m.question.toLowerCase().includes('winner')
-  ).slice(0, 5);
+  ).slice(0, 3);
 
-  const otherMarkets = markets.filter(m => 
+  const otherMarkets = sortedMarkets.filter(m => 
     !championMarkets.includes(m)
   ).slice(0, 5);
 

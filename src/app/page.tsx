@@ -39,12 +39,11 @@ export default function Home() {
   // Extract live matches
   const liveMatches = events.filter(e => e.live).slice(0, 2);
   
+  // Sort events by volume first
+  const sortedEvents = [...events].sort((a, b) => b.volume24hr - a.volume24hr);
+  
   // Extract all markets sorted by volume
-  const allMarkets = events.flatMap(e => e.markets).sort((a, b) => {
-    const volA = parseFloat(a.volume.replace(/[$MK]/g, '')) || 0;
-    const volB = parseFloat(b.volume.replace(/[$MK]/g, '')) || 0;
-    return volB - volA;
-  });
+  const allMarkets = sortedEvents.flatMap(e => e.markets).slice(0, 20);
 
   // Hot markets (top volume)
   const hotMarkets = allMarkets.slice(0, 10);
