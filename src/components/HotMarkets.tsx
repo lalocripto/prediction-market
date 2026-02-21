@@ -14,20 +14,21 @@ export default function HotMarkets({ markets, onTrade }: HotMarketsProps) {
     return volB - volA;
   });
 
-  const championMarkets = sortedMarkets.filter(m =>
-    m.question.toLowerCase().includes('win') ||
-    m.question.toLowerCase().includes('champion') ||
-    m.question.toLowerCase().includes('winner')
-  ).slice(0, 3);
+  const championMarkets = sortedMarkets.filter(m => {
+    const q = m.question.toLowerCase();
+    return q.includes('win') || q.includes('ganará') ||
+           q.includes('champion') || q.includes('ganador') ||
+           q.includes('winner');
+  }).slice(0, 5);
 
   const otherMarkets = sortedMarkets.filter(m =>
     !championMarkets.includes(m)
-  ).slice(0, 4);
+  ).slice(0, 5);
 
   if (markets.length === 0) {
     return (
       <div className="bg-white rounded-[8px] p-4">
-        <h2 className="text-lg font-bold text-[#111111]">Hot &gt;</h2>
+        <h2 className="text-lg font-bold text-[#111111]">Tendencias &gt;</h2>
         <p className="text-gray-600 font-light mt-2 text-xs">No hay mercados disponibles</p>
       </div>
     );
@@ -35,7 +36,7 @@ export default function HotMarkets({ markets, onTrade }: HotMarketsProps) {
 
   return (
     <div className="bg-white rounded-[8px] p-4">
-      <h2 className="text-lg font-bold text-[#111111] mb-2">Hot &gt;</h2>
+      <h2 className="text-lg font-bold text-[#111111] mb-2">Tendencias &gt;</h2>
 
       <div className="space-y-3">
         {championMarkets.length > 0 && (

@@ -112,6 +112,7 @@ export type Tab = "all" | "qualifiers" | "winner" | "my-bets";
 
 export interface Bet {
   marketId: string;
+  marketQuestion?: string;
   outcome: string;
   amount: number;
   price: number;

@@ -94,6 +94,7 @@ export default function TradeModal({
 
     onPlaceBet({
       marketId: market.id,
+      marketQuestion: market.question,
       outcome: selectedOutcome.label,
       amount: amountNum,
       price: selectedOutcome.price,
@@ -357,7 +358,7 @@ export default function TradeModal({
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 text-[10px] text-[#31A159] hover:underline mb-2"
                 >
-                  Approval tx: {txHash.slice(0, 10)}...{txHash.slice(-6)}
+                  Tx aprobación: {txHash.slice(0, 10)}...{txHash.slice(-6)}
                   <ExternalLink className="w-3 h-3" />
                 </a>
               )}
@@ -397,7 +398,7 @@ Orden Colocada Exitosamente!
                 </div>
                 {txHash && (
                   <div className="flex justify-between text-xs items-center">
-                    <span className="text-gray-500 font-light">Approval Tx</span>
+                    <span className="text-gray-500 font-light">Tx Aprobación</span>
                     <a
                       href={`https://monadvision.com/tx/${txHash}`}
                       target="_blank"
@@ -411,7 +412,7 @@ Orden Colocada Exitosamente!
                 )}
                 {signature && (
                   <div className="flex justify-between text-xs items-center">
-                    <span className="text-gray-500 font-light">Signature</span>
+                    <span className="text-gray-500 font-light">Firma</span>
                     <span className="text-gray-600 font-mono text-[10px]">
                       {signature.slice(0, 10)}...{signature.slice(-6)}
                     </span>

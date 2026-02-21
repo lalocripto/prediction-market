@@ -107,10 +107,10 @@ export default function Home() {
   const sortedEvents = [...events].sort((a, b) => b.volume24hr - a.volume24hr);
 
   // Extract all markets sorted by volume
-  const allMarkets = sortedEvents.flatMap(e => e.markets).slice(0, 20);
+  const allMarkets = sortedEvents.flatMap(e => e.markets).slice(0, 30);
 
   // Hot markets (top volume)
-  const hotMarkets = allMarkets.slice(0, 10);
+  const hotMarkets = allMarkets.slice(0, 15);
 
   return (
     <div className="h-screen bg-[#31A159] flex flex-col overflow-hidden">

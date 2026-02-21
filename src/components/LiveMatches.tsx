@@ -93,7 +93,7 @@ export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatches
                   <span>{event.endDate}</span>
                   <span className="font-normal">{event.volume24hr ? `$${(event.volume24hr / 1000000).toFixed(1)}M Vol.` : ''}</span>
                 </div>
-                <span>{event.series || 'World Cup'}</span>
+                <span>{event.series || 'Copa del Mundo'}</span>
               </div>
 
               {/* Match card: flags + score */}

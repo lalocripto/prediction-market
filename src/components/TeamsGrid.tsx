@@ -24,11 +24,21 @@ const countryCodeMap: Record<string, string> = {
 };
 
 function getDisplayName(country: string): string {
-  if (country === 'usa') return 'USA';
-  if (country === 'south korea') return 'S. Korea';
-  if (country === 'saudi arabia') return 'Saudi';
-  if (country === 'costa rica') return 'Costa Rica';
-  return country.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  const spanishNames: Record<string, string> = {
+    'usa': 'EE.UU.', 'south korea': 'Corea', 'saudi arabia': 'Arabia',
+    'costa rica': 'Costa Rica', 'brazil': 'Brasil', 'france': 'Francia',
+    'germany': 'Alemania', 'spain': 'España', 'england': 'Inglaterra',
+    'netherlands': 'P. Bajos', 'italy': 'Italia', 'belgium': 'Bélgica',
+    'croatia': 'Croacia', 'mexico': 'México', 'canada': 'Canadá',
+    'peru': 'Perú', 'japan': 'Japón', 'morocco': 'Marruecos',
+    'cameroon': 'Camerún', 'tunisia': 'Túnez', 'algeria': 'Argelia',
+    'iran': 'Irán', 'qatar': 'Catar', 'panama': 'Panamá',
+    'poland': 'Polonia', 'denmark': 'Dinamarca', 'sweden': 'Suecia',
+    'norway': 'Noruega', 'switzerland': 'Suiza', 'wales': 'Gales',
+    'scotland': 'Escocia', 'turkey': 'Turquía', 'serbia': 'Serbia',
+    'australia': 'Australia',
+  };
+  return spanishNames[country] || country.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
 function getFlagUrl(country: string): string | null {
@@ -48,14 +58,16 @@ export default function TeamsGrid({ events, onTrade }: TeamsGridProps) {
   const winnerMarkets: TeamMarket[] = [];
 
   events.forEach(event => {
+    const titleLower = event.title.toLowerCase();
     const isWinnerEvent =
-      event.title.toLowerCase().includes('winner') ||
-      event.title.toLowerCase().includes('world cup');
+      titleLower.includes('winner') || titleLower.includes('ganador') ||
+      titleLower.includes('world cup') || titleLower.includes('copa del mundo');
 
     event.markets.forEach(market => {
       const q = market.question.toLowerCase();
       const isWinnerMarket =
-        q.includes('win') && (q.includes('world cup') || q.includes('fifa'));
+        (q.includes('win') || q.includes('ganará')) &&
+        (q.includes('world cup') || q.includes('copa del mundo') || q.includes('fifa'));
 
       if (isWinnerEvent || isWinnerMarket) {
         // Try to extract the country name from the question
@@ -63,7 +75,7 @@ export default function TeamsGrid({ events, onTrade }: TeamsGridProps) {
         for (const country of countryNames) {
           if (q.includes(country)) {
             const yesOutcome = market.outcomes.find(o =>
-              o.label.toLowerCase() === 'yes'
+              o.label.toLowerCase() === 'yes' || o.label.toLowerCase() === 'sí'
             );
             const price = yesOutcome ? yesOutcome.price : market.outcomes[0]?.price || 0;
             // Avoid duplicates
@@ -100,7 +112,7 @@ export default function TeamsGrid({ events, onTrade }: TeamsGridProps) {
       return (
         <div className="bg-white rounded-[8px] p-4">
           <h2 className="text-lg font-bold text-[#111111] mb-2">Equipos &gt;</h2>
-          <p className="text-gray-600 font-light text-xs">Loading teams...</p>
+          <p className="text-gray-600 font-light text-xs">Cargando equipos...</p>
         </div>
       );
     }
@@ -136,7 +148,7 @@ export default function TeamsGrid({ events, onTrade }: TeamsGridProps) {
     <div className="bg-white rounded-[8px] p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-lg font-bold text-[#111111]">Equipos &gt;</h2>
-        <span className="text-[10px] text-gray-500 font-light">World Cup Winner</span>
+        <span className="text-[10px] text-gray-500 font-light">Ganador Copa del Mundo</span>
       </div>
 
       <div className="grid grid-cols-4 gap-2">

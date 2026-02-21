@@ -20,14 +20,99 @@ function formatVolume(volume: number | string | undefined | null): string {
 }
 
 function formatDate(dateStr: string | undefined | null): string {
-  if (!dateStr) return "TBD";
+  if (!dateStr) return "Por definir";
   const date = new Date(dateStr);
-  if (isNaN(date.getTime())) return "TBD";
-  return date.toLocaleDateString("en-US", {
+  if (isNaN(date.getTime())) return "Por definir";
+  return date.toLocaleDateString("es-MX", {
     month: "short",
     day: "numeric",
     year: "numeric",
   });
+}
+
+// Translate outcome labels from English to Spanish
+function translateOutcomeLabel(label: string): string {
+  const translations: Record<string, string> = {
+    "Yes": "Sí",
+    "No": "No",
+    "Draw": "Empate",
+    "Over": "Más",
+    "Under": "Menos",
+  };
+  return translations[label] || label;
+}
+
+// Translate common English patterns in market questions to Spanish
+function translateQuestion(question: string): string {
+  let q = question;
+
+  // Country name translations
+  const countryTranslations: Record<string, string> = {
+    "Argentina": "Argentina", "Brazil": "Brasil", "France": "Francia",
+    "Germany": "Alemania", "Spain": "España", "Portugal": "Portugal",
+    "England": "Inglaterra", "Netherlands": "Países Bajos", "Italy": "Italia",
+    "Belgium": "Bélgica", "Croatia": "Croacia", "Uruguay": "Uruguay",
+    "Colombia": "Colombia", "Mexico": "México", "United States": "Estados Unidos",
+    "Canada": "Canadá", "Chile": "Chile", "Ecuador": "Ecuador",
+    "Peru": "Perú", "Japan": "Japón", "South Korea": "Corea del Sur",
+    "Australia": "Australia", "Morocco": "Marruecos", "Senegal": "Senegal",
+    "Ghana": "Ghana", "Nigeria": "Nigeria", "Cameroon": "Camerún",
+    "Tunisia": "Túnez", "Algeria": "Argelia", "Saudi Arabia": "Arabia Saudita",
+    "Iran": "Irán", "Qatar": "Catar", "Costa Rica": "Costa Rica",
+    "Honduras": "Honduras", "Panama": "Panamá", "Paraguay": "Paraguay",
+    "Bolivia": "Bolivia", "Venezuela": "Venezuela", "Poland": "Polonia",
+    "Denmark": "Dinamarca", "Sweden": "Suecia", "Norway": "Noruega",
+    "Switzerland": "Suiza", "Austria": "Austria", "Wales": "Gales",
+    "Scotland": "Escocia", "Serbia": "Serbia", "Turkey": "Turquía",
+    "USA": "EE.UU.",
+  };
+
+  // Replace country names
+  for (const [en, es] of Object.entries(countryTranslations)) {
+    if (en !== es) {
+      q = q.replace(new RegExp(`\\b${en}\\b`, "g"), es);
+    }
+  }
+
+  // Common question patterns
+  q = q.replace(/Will (.+?) win the 2026 FIFA World Cup\?/i, "¿$1 ganará la Copa del Mundo FIFA 2026?");
+  q = q.replace(/Will (.+?) win the FIFA World Cup 2026\?/i, "¿$1 ganará la Copa del Mundo FIFA 2026?");
+  q = q.replace(/Will (.+?) win the World Cup\?/i, "¿$1 ganará la Copa del Mundo?");
+  q = q.replace(/Will (.+?) win (.+?)\?/i, "¿$1 ganará $2?");
+  q = q.replace(/Will (.+?) qualify for/i, "¿$1 se clasificará para");
+  q = q.replace(/Will (.+?) advance to/i, "¿$1 avanzará a");
+  q = q.replace(/Will (.+?) beat (.+?)\?/i, "¿$1 vencerá a $2?");
+  q = q.replace(/Who will win (.+?)\?/i, "¿Quién ganará $1?");
+  q = q.replace(/the 2026 FIFA World Cup/gi, "la Copa del Mundo FIFA 2026");
+  q = q.replace(/the FIFA World Cup/gi, "la Copa del Mundo FIFA");
+  q = q.replace(/World Cup 2026/gi, "Copa del Mundo 2026");
+  q = q.replace(/World Cup/gi, "Copa del Mundo");
+  q = q.replace(/the group stage/gi, "la fase de grupos");
+  q = q.replace(/the semifinals/gi, "las semifinales");
+  q = q.replace(/the quarterfinals/gi, "los cuartos de final");
+  q = q.replace(/the final/gi, "la final");
+  q = q.replace(/the round of 16/gi, "los octavos de final");
+  q = q.replace(/Group ([A-Z])/g, "Grupo $1");
+  q = q.replace(/Top scorer/gi, "Máximo goleador");
+  q = q.replace(/Golden Boot/gi, "Bota de Oro");
+  q = q.replace(/Golden Ball/gi, "Balón de Oro");
+
+  return q;
+}
+
+// Translate event titles to Spanish
+function translateEventTitle(title: string): string {
+  let t = title;
+  t = t.replace(/2026 FIFA World Cup Winner/gi, "Ganador Copa del Mundo FIFA 2026");
+  t = t.replace(/FIFA World Cup 2026/gi, "Copa del Mundo FIFA 2026");
+  t = t.replace(/2026 FIFA World Cup/gi, "Copa del Mundo FIFA 2026");
+  t = t.replace(/World Cup 2026/gi, "Copa del Mundo 2026");
+  t = t.replace(/World Cup/gi, "Copa del Mundo");
+  t = t.replace(/Winner/gi, "Ganador");
+  t = t.replace(/WCQ/gi, "Eliminatorias");
+  t = t.replace(/Qualifiers/gi, "Eliminatorias");
+  t = t.replace(/ vs\.? /gi, " vs ");
+  return t;
 }
 
 function parseOutcomes(market: {
@@ -38,12 +123,12 @@ function parseOutcomes(market: {
     const labels: string[] = JSON.parse(market.outcomes);
     const prices: string[] = JSON.parse(market.outcomePrices);
     return labels.map((label, i) => ({
-      label,
+      label: translateOutcomeLabel(label),
       price: parseFloat(prices[i]) || 0,
     }));
   } catch {
     return [
-      { label: "Yes", price: 0.5 },
+      { label: "Sí", price: 0.5 },
       { label: "No", price: 0.5 },
     ];
   }
@@ -76,7 +161,7 @@ function transformMarket(
   const category = getCategoryFromTags(event.tags);
   return {
     id: market.id,
-    question: market.question,
+    question: translateQuestion(market.question),
     category: category.label,
     categorySlug: category.slug,
     volume: formatVolume(market.volume),
@@ -89,7 +174,7 @@ function transformMarket(
     slug: market.slug,
     liquidity: formatVolume(market.liquidity),
     eventId: event.id,
-    eventTitle: event.title,
+    eventTitle: translateEventTitle(event.title),
     live: event.live,
     score: event.score,
   };
@@ -102,7 +187,7 @@ function transformEvent(event: PolymarketEvent): SoccerEvent {
 
   return {
     id: event.id,
-    title: event.title,
+    title: translateEventTitle(event.title),
     slug: event.slug,
     image: event.image,
     icon: event.icon,

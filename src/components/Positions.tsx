@@ -52,9 +52,9 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
     } catch (err: unknown) {
       const e = err as { code?: number; message?: string };
       if (e.code === 4001) {
-        setSellError("Rejected in MetaMask");
+        setSellError("Rechazado en MetaMask");
       } else {
-        setSellError(e.message || "Approval failed");
+        setSellError(e.message || "Aprobación fallida");
       }
       setSellStep("idle");
       setSellingIndex(null);
@@ -74,9 +74,9 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
     } catch (err: unknown) {
       const e = err as { code?: number; message?: string };
       if (e.code === 4001) {
-        setSellError("Signing rejected");
+        setSellError("Firma rechazada");
       } else {
-        setSellError(e.message || "Signing failed");
+        setSellError(e.message || "Firma fallida");
       }
       setSellStep("idle");
       setSellingIndex(null);
@@ -185,9 +185,9 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                     </span>
                   </div>
 
-                  {/* Market ID as reference */}
+                  {/* Market question */}
                   <p className="text-[10px] text-gray-500 font-light mb-2 truncate">
-                    Market: {bet.marketId.slice(0, 20)}...
+                    {bet.marketQuestion || `Mercado: ${bet.marketId.slice(0, 20)}...`}
                   </p>
 
                   {/* Stats row */}
@@ -199,13 +199,13 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                       </div>
                     </div>
                     <div>
-                      <div className="text-[10px] text-gray-500 font-light">Shares</div>
+                      <div className="text-[10px] text-gray-500 font-light">Acciones</div>
                       <div className="text-xs font-semibold text-[#111111]">
                         {shares.toFixed(2)}
                       </div>
                     </div>
                     <div>
-                      <div className="text-[10px] text-gray-500 font-light">P&L</div>
+                      <div className="text-[10px] text-gray-500 font-light">G&P</div>
                       <div className={`text-xs font-semibold flex items-center gap-0.5 ${
                         pnl >= 0 ? "text-[#31A159]" : "text-red-500"
                       }`}>
@@ -277,7 +277,7 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                   {/* Sold info for history */}
                   {activeTab === "history" && bet.sellSignature && (
                     <div className="flex items-center justify-between p-1.5 rounded-[8px] bg-[#E6E6E6]/50">
-                      <span className="text-[10px] text-gray-500 font-light">Sell sig:</span>
+                      <span className="text-[10px] text-gray-500 font-light">Firma venta:</span>
                       <span className="text-[10px] text-gray-600 font-mono">
                         {bet.sellSignature.slice(0, 12)}...
                       </span>

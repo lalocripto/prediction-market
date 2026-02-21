@@ -2,18 +2,18 @@
 
 export default function Leaderboard() {
   const leaders = [
-    { rank: 1, name: "User name", points: "24,987" },
-    { rank: 2, name: "User name", points: "22,567" },
-    { rank: 3, name: "User name", points: "20,632" },
-    { rank: 4, name: "User name", points: "17,009" },
-    { rank: 5, name: "User name", points: "13,532" }
+    { rank: 1, name: "Nombre usuario", points: "24,987" },
+    { rank: 2, name: "Nombre usuario", points: "22,567" },
+    { rank: 3, name: "Nombre usuario", points: "20,632" },
+    { rank: 4, name: "Nombre usuario", points: "17,009" },
+    { rank: 5, name: "Nombre usuario", points: "13,532" }
   ];
 
   return (
     <div className="bg-white rounded-[8px] p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-lg font-bold text-[#111111]">Tabla de líderes &gt;</h2>
-        <span className="text-[10px] text-gray-600 font-light">Vol. total trade</span>
+        <span className="text-[10px] text-gray-600 font-light">Vol. total operado</span>
       </div>
 
       <div className="space-y-1">
