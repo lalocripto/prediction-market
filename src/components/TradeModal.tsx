@@ -112,9 +112,9 @@ export default function TradeModal({
   const outcomeButtonColors = [
     {
       active:
-        "bg-emerald-500/20 text-emerald-400 border-emerald-500/50 shadow-emerald-500/10",
+        "bg-amber-500/20 text-amber-400 border-amber-500/50 shadow-amber-500/10",
       submit:
-        "bg-emerald-500 hover:bg-emerald-400 shadow-emerald-500/25 disabled:bg-emerald-500/20 disabled:text-emerald-500/50",
+        "bg-amber-500 hover:bg-amber-400 shadow-amber-500/25 disabled:bg-amber-500/20 disabled:text-amber-500/50",
     },
     {
       active:
@@ -147,7 +147,7 @@ export default function TradeModal({
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={step === "input" || step === "confirmed" ? onClose : undefined}
       />
-      <div className="relative bg-[#12122a] border border-white/10 rounded-2xl w-full max-w-md shadow-2xl shadow-emerald-900/20">
+      <div className="relative bg-[#12122a] border border-white/10 rounded-2xl w-full max-w-md shadow-2xl shadow-amber-900/20">
         <div className="flex items-center justify-between p-5 border-b border-white/10">
           <h2 className="text-lg font-bold text-white">
             {step === "confirmed" ? "Trade Confirmed" : "Place Trade"}
@@ -234,7 +234,7 @@ export default function TradeModal({
                   {wallet.isConnected && (
                     <button
                       onClick={() => setAmount(balance.toString())}
-                      className="text-[10px] text-emerald-400/70 hover:text-emerald-400 transition-colors"
+                      className="text-[10px] text-amber-400/70 hover:text-amber-400 transition-colors"
                     >
                       Balance: {balance.toFixed(2)} USDC
                     </button>
@@ -252,7 +252,7 @@ export default function TradeModal({
                     className={`w-full bg-white/5 border rounded-xl py-3 pl-8 pr-4 text-white text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 transition-all ${
                       insufficientBalance && amountNum > 0
                         ? "border-red-500/50 focus:border-red-500/50 focus:ring-red-500/25"
-                        : "border-white/10 focus:border-emerald-500/50 focus:ring-emerald-500/25"
+                        : "border-white/10 focus:border-amber-500/50 focus:ring-amber-500/25"
                     }`}
                   />
                 </div>
@@ -292,10 +292,10 @@ export default function TradeModal({
                 </div>
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-500">Potential Return</span>
-                  <span className="text-emerald-400 font-medium">
+                  <span className="text-amber-400 font-medium">
                     ${potentialReturn.toFixed(2)}{" "}
                     {profit > 0 && (
-                      <span className="text-emerald-500">
+                      <span className="text-amber-500">
                         (+
                         {(
                           (profit / (parseFloat(amount) || 1)) *
@@ -348,8 +348,8 @@ export default function TradeModal({
           {/* ============ APPROVING STEP ============ */}
           {step === "approving" && (
             <div className="flex flex-col items-center py-6">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
-                <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
+              <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mb-4">
+                <Loader2 className="w-8 h-8 text-amber-400 animate-spin" />
               </div>
               <h3 className="text-white font-semibold mb-1">
                 Approve USDC Spending
@@ -359,7 +359,7 @@ export default function TradeModal({
                 {amountNum.toFixed(2)} USDC
               </p>
               <div className="flex items-center gap-2 text-[10px] text-gray-500">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
                 Waiting for MetaMask confirmation...
               </div>
             </div>
@@ -380,7 +380,7 @@ export default function TradeModal({
                   href={`https://monadvision.com/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-[10px] text-emerald-400 hover:underline mb-2"
+                  className="flex items-center gap-1 text-[10px] text-amber-400 hover:underline mb-2"
                 >
                   Approval tx: {txHash.slice(0, 10)}...{txHash.slice(-6)}
                   <ExternalLink className="w-3 h-3" />
@@ -396,8 +396,8 @@ export default function TradeModal({
           {/* ============ CONFIRMED STEP ============ */}
           {step === "confirmed" && (
             <div className="flex flex-col items-center py-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
-                <CheckCircle className="w-8 h-8 text-emerald-400" />
+              <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mb-4">
+                <CheckCircle className="w-8 h-8 text-amber-400" />
               </div>
               <h3 className="text-white font-semibold mb-1">
                 Order Placed Successfully!
@@ -427,7 +427,7 @@ export default function TradeModal({
                       href={`https://monadvision.com/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-emerald-400 hover:underline"
+                      className="flex items-center gap-1 text-amber-400 hover:underline"
                     >
                       {txHash.slice(0, 8)}...{txHash.slice(-4)}
                       <ExternalLink className="w-3 h-3" />
@@ -456,7 +456,7 @@ export default function TradeModal({
                 </button>
                 <button
                   onClick={onClose}
-                  className="flex-1 py-2.5 rounded-xl text-sm font-semibold bg-emerald-600 text-white hover:bg-emerald-500 transition-all"
+                  className="flex-1 py-2.5 rounded-xl text-sm font-semibold bg-amber-600 text-white hover:bg-amber-500 transition-all"
                 >
                   Done
                 </button>

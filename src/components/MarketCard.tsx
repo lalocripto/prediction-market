@@ -10,11 +10,11 @@ interface MarketCardProps {
 
 const categoryColors: Record<string, string> = {
   FIFA: "bg-amber-500/15 text-amber-400 border-amber-500/30",
-  "World Cup": "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+  "World Cup": "bg-amber-500/15 text-amber-400 border-amber-500/30",
   CONMEBOL: "bg-yellow-500/15 text-yellow-400 border-yellow-500/30",
   UEFA: "bg-blue-500/15 text-blue-400 border-blue-500/30",
-  Soccer: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-  Sports: "bg-green-500/15 text-green-400 border-green-500/30",
+  Soccer: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+  Sports: "bg-amber-500/15 text-amber-400 border-amber-500/30",
 };
 
 const outcomeColors = [
@@ -26,7 +26,7 @@ const outcomeColors = [
 
 export default function MarketCard({ market, onTrade }: MarketCardProps) {
   return (
-    <div className="group bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5 hover:bg-white/[0.06] hover:border-emerald-500/30 transition-all duration-300">
+    <div className="group bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5 hover:bg-white/[0.06] hover:border-amber-500/30 transition-all duration-300">
       <div className="flex items-start justify-between mb-3">
         <span
           className={`text-xs font-medium px-2.5 py-1 rounded-lg border ${
@@ -111,7 +111,7 @@ export default function MarketCard({ market, onTrade }: MarketCardProps) {
       {!market.resolved && (
         <button
           onClick={() => onTrade(market)}
-          className="w-full py-2.5 rounded-xl text-sm font-semibold bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white transition-all duration-200"
+          className="w-full py-2.5 rounded-xl text-sm font-semibold bg-amber-600/20 text-amber-400 border border-amber-500/30 hover:bg-amber-600 hover:text-white transition-all duration-200"
         >
           Trade
         </button>
