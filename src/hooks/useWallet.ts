@@ -163,9 +163,15 @@ export function useWallet() {
         chain: monad,
       });
 
-      // Wait for confirmation
+      // Wait for confirmation with timeout (Monad RPC can hang)
       if (publicClientRef.current) {
-        await publicClientRef.current.waitForTransactionReceipt({ hash });
+        const timeout = new Promise<null>((resolve) =>
+          setTimeout(() => resolve(null), 15000)
+        );
+        await Promise.race([
+          publicClientRef.current.waitForTransactionReceipt({ hash }),
+          timeout,
+        ]);
       }
 
       return hash;
