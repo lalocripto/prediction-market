@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "@/components/Header";
 import LiveMatches from "@/components/LiveMatches";
 import HotMarkets from "@/components/HotMarkets";
@@ -14,12 +14,53 @@ import { useWalletContext } from "@/lib/WalletContext";
 import { SoccerEvent, Market, Bet } from "@/types/market";
 import { Loader2 } from "lucide-react";
 
+const BETS_STORAGE_KEY = "prediction-market-bets";
+
+function loadBetsFromStorage(): Bet[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const stored = localStorage.getItem(BETS_STORAGE_KEY);
+    if (stored) {
+      return JSON.parse(stored) as Bet[];
+    }
+  } catch {
+    // ignore parse errors
+  }
+  return [];
+}
+
+function saveBetsToStorage(bets: Bet[]) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(BETS_STORAGE_KEY, JSON.stringify(bets));
+  } catch {
+    // ignore storage errors
+  }
+}
+
 export default function Home() {
   const [events, setEvents] = useState<SoccerEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [tradeMarket, setTradeMarket] = useState<Market | null>(null);
   const [bets, setBets] = useState<Bet[]>([]);
   const wallet = useWalletContext();
+
+  // Load bets from localStorage on mount
+  useEffect(() => {
+    const stored = loadBetsFromStorage();
+    if (stored.length > 0) {
+      setBets(stored);
+    }
+  }, []);
+
+  // Save bets to localStorage whenever they change
+  const updateBets = useCallback((updater: Bet[] | ((prev: Bet[]) => Bet[])) => {
+    setBets((prev) => {
+      const next = typeof updater === "function" ? updater(prev) : updater;
+      saveBetsToStorage(next);
+      return next;
+    });
+  }, []);
 
   const handleTrade = async (market: Market) => {
     if (!wallet.isConnected) {
@@ -29,11 +70,11 @@ export default function Home() {
   };
 
   const handlePlaceBet = (bet: Bet) => {
-    setBets((prev) => [...prev, bet]);
+    updateBets((prev) => [...prev, bet]);
   };
 
   const handleSellComplete = (betIndex: number, sellSignature: string, sellTxHash: string) => {
-    setBets((prev) =>
+    updateBets((prev) =>
       prev.map((bet, i) =>
         i === betIndex
           ? { ...bet, sellSignature, sellTxHash, soldAt: Date.now() }
@@ -106,9 +147,7 @@ export default function Home() {
             {/* Right Column — Video + News */}
             <div className="lg:col-span-2 flex flex-col gap-3 overflow-hidden">
               <VideoPlayer liveMatch={liveMatches[0]} />
-              <div className="flex-1 overflow-y-auto scrollbar-thin">
-                <News />
-              </div>
+              <News />
             </div>
           </div>
         )}

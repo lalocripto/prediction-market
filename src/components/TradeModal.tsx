@@ -50,10 +50,11 @@ export default function TradeModal({
     setTradeError(null);
 
     // Step 1: Approve USDC
+    let approvalHash = "";
     try {
       setStep("approving");
-      const hash = await wallet.approveUSDC(amountNum);
-      setTxHash(hash);
+      approvalHash = await wallet.approveUSDC(amountNum);
+      setTxHash(approvalHash);
     } catch (err: unknown) {
       const e = err as { code?: number; message?: string };
       if (e.code === 4001) {
@@ -66,15 +67,16 @@ export default function TradeModal({
     }
 
     // Step 2: Sign order
+    let orderSignature = "";
     try {
       setStep("signing");
-      const sig = await wallet.signTypedOrder({
+      orderSignature = await wallet.signTypedOrder({
         tokenId: market.id,
         side: "BUY",
         makerAmount: amountNum,
         takerAmount: shares,
       });
-      setSignature(sig);
+      setSignature(orderSignature);
     } catch (err: unknown) {
       const e = err as { code?: number; message?: string };
       if (e.code === 4001) {
@@ -86,7 +88,7 @@ export default function TradeModal({
       return;
     }
 
-    // Step 3: Confirmed
+    // Step 3: Confirmed — use local vars, not state (state updates are async)
     setStep("confirmed");
     wallet.refreshBalance();
 
@@ -96,8 +98,8 @@ export default function TradeModal({
       amount: amountNum,
       price: selectedOutcome.price,
       timestamp: Date.now(),
-      txHash: txHash || undefined,
-      signature: signature || undefined,
+      txHash: approvalHash || undefined,
+      signature: orderSignature || undefined,
       walletAddress: wallet.address || undefined,
     });
   };
