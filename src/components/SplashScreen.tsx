@@ -7,10 +7,10 @@ export default function SplashScreen() {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    // Start fade out after 2.5s
-    const fadeTimer = setTimeout(() => setFadeOut(true), 2500);
+    // Start fade out after 2s
+    const fadeTimer = setTimeout(() => setFadeOut(true), 2000);
     // Remove from DOM after fade completes
-    const removeTimer = setTimeout(() => setVisible(false), 3200);
+    const removeTimer = setTimeout(() => setVisible(false), 2500);
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(removeTimer);
@@ -21,7 +21,7 @@ export default function SplashScreen() {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] bg-[#836EF9] flex items-center justify-center transition-opacity duration-700 ${
+      className={`fixed inset-0 z-[100] bg-white flex items-center justify-center transition-opacity duration-500 ${
         fadeOut ? "opacity-0" : "opacity-100"
       }`}
     >
