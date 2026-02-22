@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Sidebar from "@/components/Sidebar";
+import SplashScreen from "@/components/SplashScreen";
 import LiveMatches from "@/components/LiveMatches";
 import HotMarkets from "@/components/HotMarkets";
 import TeamsGrid from "@/components/TeamsGrid";
@@ -113,6 +114,7 @@ export default function Home() {
 
   return (
     <div className="h-screen bg-[#F0EDFF] flex overflow-hidden">
+      <SplashScreen />
       {/* Sidebar on the left */}
       <Sidebar />
 

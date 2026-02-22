@@ -18,11 +18,21 @@ export default function Sidebar() {
     <aside className="w-[72px] bg-[#836EF9] flex flex-col items-center py-4 gap-3 shrink-0 rounded-[12px] m-2 mr-0">
       {/* Logo */}
       <div className="w-10 h-10 rounded-[10px] bg-white/20 flex items-center justify-center mb-2 overflow-hidden">
-        <img src="/mondial_logo.svg" alt="Mondial" className="w-9 h-9 object-contain" />
+        <img src="/mondial_iso.svg" alt="Mondial" className="w-9 h-9 object-contain" />
       </div>
 
       {/* Spacer */}
       <div className="flex-1" />
+
+      {/* USDC Balance */}
+      {wallet.isConnected && wallet.usdcBalance && (
+        <div className="flex flex-col items-center gap-0.5 px-1">
+          <span className="text-[10px] text-white font-bold">
+            ${parseFloat(wallet.usdcBalance).toFixed(2)}
+          </span>
+          <span className="text-[7px] text-white/60 font-light">USDC</span>
+        </div>
+      )}
 
       {/* Wallet at bottom */}
       <div className="flex flex-col items-center gap-2">
@@ -34,11 +44,6 @@ export default function Sidebar() {
             <span className="text-[8px] text-white/70 font-mono">
               {wallet.address?.slice(0, 4)}..{wallet.address?.slice(-3)}
             </span>
-            {wallet.usdcBalance && (
-              <span className="text-[8px] text-white font-medium">
-                {parseFloat(wallet.usdcBalance).toFixed(0)}
-              </span>
-            )}
           </div>
         ) : (
           <button
