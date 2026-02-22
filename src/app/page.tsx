@@ -124,23 +124,23 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 h-full">
-            {/* Left Column — Top Markets + Teams + Positions */}
+            {/* Left Column — Top Markets + Teams */}
             <div className="lg:col-span-1 flex flex-col gap-3 overflow-hidden">
               <div className="flex-1 overflow-y-auto scrollbar-thin">
                 <div className="space-y-3">
                   <LiveMatches matches={liveMatches} allEvents={events} onTrade={handleTrade} />
                   <TeamsGrid events={events} onTrade={handleTrade} />
-                  <Positions bets={bets} onSellComplete={handleSellComplete} />
                 </div>
               </div>
             </div>
 
-            {/* Center Column — Hot Markets */}
-            <div className="lg:col-span-1 flex flex-col gap-3 overflow-hidden">
-              <div className="flex-1 overflow-y-auto scrollbar-thin">
-                <div className="space-y-3">
-                  <HotMarkets markets={hotMarkets} onTrade={handleTrade} />
-                </div>
+            {/* Center Column — Tendencias (50%) + Posiciones (50%) */}
+            <div className="lg:col-span-1 flex flex-col gap-3 overflow-hidden h-full">
+              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
+                <HotMarkets markets={hotMarkets} onTrade={handleTrade} />
+              </div>
+              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
+                <Positions bets={bets} onSellComplete={handleSellComplete} />
               </div>
             </div>
 
