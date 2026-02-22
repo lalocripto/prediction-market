@@ -25,11 +25,11 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
   const [sellStep, setSellStep] = useState<"idle" | "approving" | "signing" | "done">("idle");
   const [sellError, setSellError] = useState<string | null>(null);
 
-  // Separate open positions (not sold) from history (sold)
+  // Separate open positions (not sold) from all history
   const openPositions = bets.filter(b => !b.sellSignature);
-  const closedPositions = bets.filter(b => b.sellSignature);
+  const allPositions = [...bets].reverse(); // All bets, newest first
 
-  const displayBets = activeTab === "open" ? openPositions : closedPositions;
+  const displayBets = activeTab === "open" ? openPositions : allPositions;
 
   const handleSell = async (bet: Bet, index: number) => {
     if (!wallet.isConnected) {
@@ -128,7 +128,7 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                 : "bg-[#DAD3FF]/40 text-[#111111] hover:opacity-80"
             }`}
           >
-            Historial ({closedPositions.length})
+            Historial ({allPositions.length})
           </button>
         </div>
       </div>
@@ -147,7 +147,7 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
             <p className="text-xs text-gray-500 font-light">
               {activeTab === "open"
                 ? "No tienes posiciones abiertas"
-                : "No tienes historial de ventas"}
+                : "No tienes historial de trades"}
             </p>
             {activeTab === "open" && (
               <p className="text-[10px] text-gray-400 font-light mt-1">
@@ -174,7 +174,7 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-1.5">
                       <span className={`inline-block w-1.5 h-1.5 rounded-full ${
-                        activeTab === "open" ? "bg-[#836EF9]" : "bg-gray-400"
+                        !bet.sellSignature ? "bg-[#836EF9]" : "bg-gray-400"
                       }`} />
                       <span className="text-xs font-semibold text-[#111111]">
                         {bet.outcome}
@@ -239,8 +239,8 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                     )}
                   </div>
 
-                  {/* Sell button (only for open positions) */}
-                  {activeTab === "open" && (
+                  {/* Sell/Close button — show for any unsold bet */}
+                  {!bet.sellSignature && (
                     <button
                       onClick={() => handleSell(bet, realIndex)}
                       disabled={isSelling}
@@ -269,15 +269,15 @@ export default function Positions({ bets, onSellComplete }: PositionsProps) {
                           {sellStep === "done" && "Vendido ✓"}
                         </span>
                       ) : (
-                        `Vender — $${(shares * bet.price).toFixed(2)}`
+                        `Cerrar — $${(shares * bet.price).toFixed(2)}`
                       )}
                     </button>
                   )}
 
-                  {/* Sold info for history */}
-                  {activeTab === "history" && bet.sellSignature && (
-                    <div className="flex items-center justify-between p-1.5 rounded-[8px] bg-[#DAD3FF]/40/50">
-                      <span className="text-[10px] text-gray-500 font-light">Firma venta:</span>
+                  {/* Sold/Closed info */}
+                  {bet.sellSignature && (
+                    <div className="flex items-center justify-between p-1.5 rounded-[8px] bg-[#DAD3FF]/20">
+                      <span className="text-[10px] text-[#836EF9] font-medium">Cerrada ✓</span>
                       <span className="text-[10px] text-gray-600 font-mono">
                         {bet.sellSignature.slice(0, 12)}...
                       </span>

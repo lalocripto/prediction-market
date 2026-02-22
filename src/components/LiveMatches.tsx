@@ -59,6 +59,20 @@ function capitalize(s: string): string {
 
 export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatchesProps) {
   const sortedByVolume = [...allEvents].sort((a, b) => b.volume24hr - a.volume24hr);
+
+  // Find Mexico World Cup Winner market specifically
+  let mexicoMarket: import("@/types/market").Market | null = null;
+  for (const event of allEvents) {
+    for (const market of event.markets) {
+      const q = market.question.toLowerCase();
+      if ((q.includes('mexico') || q.includes('méxico')) && (q.includes('win') || q.includes('ganará')) && (q.includes('world cup') || q.includes('copa del mundo') || q.includes('fifa'))) {
+        mexicoMarket = market;
+        break;
+      }
+    }
+    if (mexicoMarket) break;
+  }
+
   const displayMatches = matches.length > 0 ? matches : sortedByVolume.slice(0, 2);
   const significantMatches = displayMatches.filter(e => e.volume24hr > 100000);
 
@@ -78,6 +92,54 @@ export default function LiveMatches({ matches, allEvents, onTrade }: LiveMatches
       </h2>
 
       <div className="space-y-4">
+        {/* Mexico World Cup market card */}
+        {mexicoMarket && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between text-[10px] text-gray-500 font-light">
+              <span>{mexicoMarket.volume} Vol.</span>
+              <span>Copa del Mundo 2026</span>
+            </div>
+            <div className="flex items-center justify-center gap-6">
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-12 h-12 rounded-full border-2 border-[#DAD3FF] bg-[#DAD3FF]/30 overflow-hidden flex items-center justify-center">
+                  <img src="https://flagcdn.com/w80/mx.png" alt="México" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-xs font-semibold text-[#111111]">México</span>
+              </div>
+              <div className="text-center">
+                <p className="text-sm font-bold text-[#111111]">¿Ganará el Mundial?</p>
+                <p className="text-[10px] text-gray-500 font-light mt-0.5">Copa del Mundo FIFA 2026</p>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-12 h-12 rounded-full border-2 border-[#DAD3FF] bg-[#DAD3FF]/30 overflow-hidden flex items-center justify-center">
+                  <span className="text-2xl">🏆</span>
+                </div>
+                <span className="text-xs font-semibold text-[#836EF9]">
+                  {mexicoMarket.outcomes[0] ? `${Math.round(mexicoMarket.outcomes[0].price * 100)}¢` : ''}
+                </span>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {mexicoMarket.outcomes.slice(0, 2).map((outcome, i) => (
+                <button
+                  key={i}
+                  onClick={() => onTrade(mexicoMarket!)}
+                  className={`flex flex-col items-center py-2.5 rounded-[8px] ${i === 0 ? 'bg-[#836EF9] text-white' : 'bg-[#F1FBB9] text-[#111111]'} hover:opacity-80 transition-opacity`}
+                >
+                  <span className="text-xs font-semibold">{outcome.label}</span>
+                  <span className="text-[10px] font-light">{Math.round(outcome.price * 100)}¢</span>
+                </button>
+              ))}
+            </div>
+            {significantMatches.length > 0 && (
+              <div className="flex items-center justify-center gap-1.5 pt-1">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-[#836EF9]' : 'bg-gray-300'}`} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
         {significantMatches.map((event, idx) => {
           const mainMarket = event.markets[0];
           if (!mainMarket) return null;
